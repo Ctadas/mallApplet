@@ -1,0 +1,56 @@
+/* pages/index/index.wxss */
+
+.swiper-box{
+	width: 100%;
+    position: relative;
+    top: 0;
+}
+.swiper-box .swiper{
+    width: 100%;
+	height: 400rpx;
+}
+.swiper-box .swiper-item{
+	width: 100%;
+	height: inherit;
+	background-color: green;
+}
+.btn-group{
+	width: 100%;
+}
+.btn-group .icon-size{
+    width:45px;
+    height: 45px;
+}
+.row-box{
+    width: 100%;
+}
+.zixun{
+    margin-top:20rpx;
+    background-color: white;
+    box-sizing:border-content;
+}
+.zixun-title-box{
+    width: 100%;
+    text-align: left;
+    padding: 20rpx;
+    color: black;
+    font-weight: bold;
+    border-top: 2rpx solid rgb(211, 211, 211);
+    border-bottom: 2rpx solid rgb(211, 211, 211);
+}
+.title-left{
+    border-left: 10rpx solid black;
+    margin-right: 15rpx;
+}
+.zixun-content-box{
+    padding-top:20rpx; 
+    background-color: rgb(240, 240, 240);
+}
+.zixun-content-box .item-title{
+    padding:10rpx;
+    font-size: 35rpx;
+    font-weight: bold;
+    color: rgb(160, 160, 218);
+    text-align: center;
+}
+

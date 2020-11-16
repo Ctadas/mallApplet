@@ -1,0 +1,7 @@
+<view style="height:{{windowHeight}}rpx">
+    <l-tabs placement="left" animated="true" scrollable="true" content-height="{{windowHeight}}" active-color="#3683d6">
+        <l-tabpanel wx:for="{{classifications}}" wx:key="id" tab="{{item.name}}" key="{{index}}" slot="{{index}}">
+          <view class="tab-content">京东物流</view>
+        </l-tabpanel>
+      </l-tabs>
+</view>
