@@ -1,1 +1,6 @@
 /* pages/classification/classification.wxss */
+.item-info{
+	background-color:rgb(209, 209, 209);
+	box-sizing:border-content;
+	padding: 10rpx;
+}

@@ -1,0 +1,37 @@
+<view>
+	<view class="order-box">
+		<l-grid rowNum="4">
+			<l-grid-item wx:for="{{order_list}}" wx:key="id"  key="{{index}}" slot="{{index}}" bind:linitemtap="change_order"	cell="{{item}}">
+				<view class="{{item.is_selected?'order-selected':'order-unselected'}}">{{item.name}}</view>
+			</l-grid-item>
+		</l-grid>
+	</view>
+	<view class="content">
+		<l-card wx:for="{{product_list}}" wx:key="id" type="primary" 
+            image="{{item.image}}"
+            title="{{item.product.name}}  {{item.name}}" full="true" l-class="card" l-title-class="item.title">
+			<!-- 此处为content -->
+			<view class="item-content">
+				<view class="item-info">
+					<l-grid rowNum="2">
+						<l-grid-item key="1" slot="1" l-grid-item-class="item-grid">
+							<span>规格：{{item.name}}</span>
+						</l-grid-item>
+						<l-grid-item key="2" slot="2" l-grid-item-class="item-grid">
+							<span>型号：{{item.model}}</span>
+						</l-grid-item>
+					</l-grid>
+				</view>
+				<view class="item-price-box">
+					<l-price unit="￥" value="{{item.price}}" value-color="#ad0e11" unit-color="#ad0e11" value-size="36"></l-price>
+					<text class="item-sales">销量：{{item.sales}}</text>
+				</view>
+			</view>
+		</l-card>
+		<l-loadmore  line="true" show="{{loadmore_config.show}}" type="{{loadmore_config.type}}" loading-text="努力加载中~" end-text="已经到底了">
+		<view slot="content">
+			
+		</view>
+		</l-loadmore>
+	</view>
+</view>

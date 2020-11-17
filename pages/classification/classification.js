@@ -8,7 +8,13 @@ Page({
     data: {
 
     },
-
+	choose_type:function(e){
+		let that = this;
+		let type_id = e.detail.cell.id;
+		wx.navigateTo({
+			url: '/pages/product_list/product_list?type_id=' + type_id,
+		})
+	},
     /**
      * 生命周期函数--监听页面加载
      */

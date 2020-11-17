@@ -1,0 +1,38 @@
+.order-selected{
+	color:#3683d6;
+}
+.order-unselected{
+	color:gray
+}
+.card{
+	border-bottom:  2rpx solid rgb(211, 211, 211)
+}
+.item.title{
+	font-size: 38rpx;
+	text-overflow: -o-ellipsis-lastline;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	display: -webkit-box;
+	-webkit-line-clamp: 2;
+	-webkit-box-orient: vertical;
+}
+.item-content{
+	margin: 10rpx 0;
+}
+.item-info{
+	background-color:rgb(211, 211, 211);
+	box-sizing:border-content;
+	padding: 5rpx;
+	margin: 15rpx 0;
+}
+.item-price-box{
+	display: flex;
+	justify-content:space-between;
+}
+.item-sales{
+	color: grey;
+	align-self: center;
+}
+.item-grid{
+	padding: 0!important;
+}

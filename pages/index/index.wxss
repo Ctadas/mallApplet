@@ -33,13 +33,13 @@
     width: 100%;
     text-align: left;
     padding: 20rpx;
-    color: black;
+    color: #3683d6;
     font-weight: bold;
     border-top: 2rpx solid rgb(211, 211, 211);
     border-bottom: 2rpx solid rgb(211, 211, 211);
 }
 .title-left{
-    border-left: 10rpx solid black;
+    border-left: 10rpx solid #3683d6;
     margin-right: 15rpx;
 }
 .zixun-content-box{

@@ -9,21 +9,13 @@
             </block>
         </swiper>
     </view>
-    <!-- <view class="btn-group">
-        <l-grid>
-            <l-grid-item wx:for="{{btnGroupData}}" wx:key="name" key="{{index}}" slot="{{index}}" cell="{{item}}" bind:linitemtap="btnClick">
-                <image class="icon-size" src="{{item.icon}}"></image>
-                <view class="text">{{item.name}}</view>
-            </l-grid-item>
-        </l-grid>
-    </view> -->
     <view class="row-box zixun">
         <view class="zixun-title-box">
             <text class="title-left"></text>
             <text>最新推荐</text>
         </view>
         <view class="row-box zixun-content-box">
-            <view class="row-box" wx:for="{{pushInformation}}" wx:key="id">
+            <view class="row-box">
                 <!-- <view class="row-box item-title">
                     <text>一 {{item.title}} 一</text>
                 </view> -->
@@ -31,6 +23,8 @@
                     <l-water-flow generic:l-water-flow-item="l-water-card" column-gap="10rpx"/>
                 </view>
             </view>
+			<l-loadmore  line="true" show="{{loadmore_config.show}}" type="{{loadmore_config.type}}" loading-text="努力加载中~" end-text="已经到底了">
+			</l-loadmore>
         </view>
     </view>
 </view>

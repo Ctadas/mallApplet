@@ -1,10 +1,10 @@
 <!--pages/water_flow/water_flow.wxml-->
-<l-card full type="cover"   image="{{data.image}}" title="{{data.name}}（{{data.specifications[0].name}}）" l-class="life-container" l-img-class="life-img" l-title-class="life-title" bindtap="onProduct">
+<l-card full type="cover"   image="{{data.image}}" title="{{data.product.name}}  {{data.name}}" l-class="life-container" l-img-class="life-img" l-title-class="life-title" bindtap="onProduct">
     <view class='life-product-contianer'>
         <!-- <view class='art-content'>{{data.name}}</view> -->
         <view class='price-container'>
             <span>零售价：</span>
-            <l-price unit="￥" value="{{data.specifications[0].price}}" value-color="#ad0e11" unit-color="#ad0e11" value-size="36"></l-price>
+            <l-price unit="￥" value="{{data.price}}" value-color="#ad0e11" unit-color="#ad0e11" value-size="36"></l-price>
         </view> 
     </view>
 </l-card>
