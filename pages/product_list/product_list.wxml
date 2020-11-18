@@ -2,7 +2,12 @@
 	<view class="order-box">
 		<l-grid rowNum="4">
 			<l-grid-item wx:for="{{order_list}}" wx:key="id"  key="{{index}}" slot="{{index}}" bind:linitemtap="change_order"	cell="{{item}}">
-				<view class="{{item.is_selected?'order-selected':'order-unselected'}}">{{item.name}}</view>
+				<view class="{{item.is_selected?'order-selected':'order-unselected'}}">
+					<view class="order-content">
+						<text>{{item.name}}</text>
+						<l-icon size="30" l-class="order-icon" wx:if="{{item.is_selected && item.icon}}" name="{{item.icon}}"/>
+					</view>
+				</view>
 			</l-grid-item>
 		</l-grid>
 	</view>

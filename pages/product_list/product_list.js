@@ -9,14 +9,19 @@ Page({
 		order_list:[
 			{
 				name:'默认',
+				ordering_field:'name',
 				is_selected:true
 			},
 			{
 				name: '销量',
+				icon: 'down',
+				ordering_field:'sales',
 				is_selected: false
 			},
 			{
 				name: '价格',
+				icon: 'down',
+				ordering_field:'price',
 				is_selected: false
 			},
 		],
@@ -24,18 +29,36 @@ Page({
 		product_list:[],
 		page:1,
 		page_size:5,
+		ordering_field:'name', //默认排序字段
+		type_id:'', //类型分类
 		data_cout:0,
 		loadmore_config: {
 			show: false,
 			type: 'loading'
 		}
 	},
+	//排序事件方法
 	change_order:function(e){
 		let that = this;
 		let selected_index = e.detail.index;
+		let selected_name = e.detail.cell.name;
+		let selected_ordering_field = e.detail.cell.ordering_field;
+		let selected_ordering_icon = e.detail.cell.icon;
+		let selected_ordering_is_selected = e.detail.cell.is_selected;
+		// 处理点击事件按钮切换显示效果
 		let temp = [];
 		that.data.order_list.forEach((item,index)=>{
 			if(index == selected_index){
+				//判断是否为初次点击,切换相应图标
+				if(item.is_selected == true){
+					if(selected_ordering_icon == 'up'){
+						item.icon = 'down';
+					}else{
+						item.icon = 'up';
+					}
+				}else{
+					item.icon = 'down';
+				}
 				item.is_selected = true;
 			}else{
 				item.is_selected = false;
@@ -44,23 +67,54 @@ Page({
 		});	
 		that.setData({
 			order_list:temp
-		})
+		});
+		
+		let page = that.data.page;
+		let ordering_field = that.data.ordering_field;
+		page = 1;
+		//判断是否为初次点击,选择正序还是倒序
+		if(selected_ordering_is_selected == true){
+			if(selected_ordering_icon == 'up'){
+				ordering_field = '-'+selected_ordering_field;
+			}else{
+				ordering_field = selected_ordering_field;
+			}
+		}else{
+			if(selected_name == '默认'){
+				ordering_field = selected_ordering_field;
+			}else{
+				ordering_field = '-'+selected_ordering_field;
+			}
+		}
+		
+		that.setData({
+			page:page,
+			ordering_field: ordering_field
+		});
+		that.get_product_list();
 	},
+	//获取商品方法
 	get_product_list:function(){
 		let that = this;
 		let page = that.data.page;
 		let page_size = that.data.page_size;
 		let type_id = that.data.type_id;
+		let ordering_field = that.data.ordering_field;
 		wx.request({
 			url: request_urls.get_specification_info,
 			data: {
 				product__type_classification__id: type_id,
 				page: page,
-				page_size: page_size
+				page_size: page_size,
+				ordering: ordering_field,
 			},
 			success: function (res) {
 				let product_list = that.data.product_list;
-				product_list = product_list.concat(res.data.results);
+				if(page == 1){
+					product_list = res.data.results;
+				}else{
+					product_list = product_list.concat(res.data.results);
+				}
 				page = page+1;
 				that.setData({
 					product_list: product_list,

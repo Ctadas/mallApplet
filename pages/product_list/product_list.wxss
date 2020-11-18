@@ -4,6 +4,15 @@
 .order-unselected{
 	color:gray
 }
+.order-content{
+	display: flex;
+	justify-content:space-between;
+}
+.order-icon{
+	line-height: 50rpx;
+	align-self: center;
+	font-weight: bold;
+}
 .card{
 	border-bottom:  2rpx solid rgb(211, 211, 211)
 }
@@ -20,7 +29,7 @@
 	margin: 10rpx 0;
 }
 .item-info{
-	background-color:rgb(211, 211, 211);
+	background-color:rgb(243, 243, 243);
 	box-sizing:border-content;
 	padding: 5rpx;
 	margin: 15rpx 0;
