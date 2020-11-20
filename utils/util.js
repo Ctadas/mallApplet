@@ -14,6 +14,28 @@ const formatNumber = n => {
   return n[1] ? n : '0' + n
 }
 
+const getWindowHeight = () => {
+  try {
+    const res = wx.getSystemInfoSync();
+    console.log(res)
+    // 获取可使用窗口宽度
+    let clientHeight = res.windowHeight;
+    // 获取可使用窗口高度
+    let clientWidth = res.windowWidth;
+    // 算出比例
+    let ratio = 750 / clientWidth;
+    // 算出高度(单位rpx)
+    let height = clientHeight * ratio;
+    console.log(height,res)
+    // 设置高度
+    return height;
+  } catch (e) {
+    // Do something when catch error
+    console.log(e)
+  }
+}
+
 module.exports = {
-  formatTime: formatTime
+  formatTime: formatTime,
+  getWindowHeight: getWindowHeight
 }

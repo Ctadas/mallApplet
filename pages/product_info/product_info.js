@@ -1,11 +1,20 @@
 // pages/product_info/product_info.js
 let request_urls = require('../../utils/request_urls.js');
+let utils = require('../../utils/util.js');
 Page({
 
 	/**
 	 * 页面的初始数据
 	 */
 	data: {
+		swiperConfig:{
+			data: ['demo-text-1', 'demo-text-2', 'demo-text-3'],
+			indicatorDots: true,
+			vertical: false,
+			autoplay: true,
+			interval: 2000,
+			duration: 500
+		},
 
 	},
 	//获取规格数据
@@ -18,7 +27,7 @@ Page({
 				id: specification_id
 			},
 			success:function(res){
-				let specification_info = res.results;
+				let specification_info = res.data.results[0];
 				that.setData({
 					specification_info :specification_info
 				})
@@ -34,7 +43,7 @@ Page({
 				id: product_id
 			},
 			success:function(res){
-				let product_info = res.results;
+				let product_info = res.data.results[0];
 				that.setData({
 					product_info :product_info,
 					
@@ -47,12 +56,18 @@ Page({
 	 */
 	onLoad: function (options) {
 		let that = this;
+		let window_height = utils.getWindowHeight();
+
 		let specification_id = options.specification_id;
-		let product_id = option.product_id;
-		this.setData({
+		let product_id = options.product_id;
+		that.setData({
+			windowHeight: window_height,
 			specification_id: specification_id,
 			product_id: product_id
 		});
+		that.get_specification_data();
+		that.get_product_data();
+		
 	},
 
 	/**
