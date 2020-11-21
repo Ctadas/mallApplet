@@ -57,11 +57,24 @@
 	margin-left: 10rpx;
 	margin-bottom: 10rpx;
 	padding: 10rpx;
-	border: 2rpx solid grey;
-	color: grey;
+	border: 2rpx solid rgb(165, 165, 165);
+	color: rgb(165, 165, 165);
 }
 .product-info-box  .item-specification-box.selected{
 	color:#3683d6;
 	font-weight: bold;
 	border: 4rpx solid #3683d6;
+}
+.counter-box{
+	width: 400rpx!important;
+	height: 80rpx!important;
+}
+.counter-item-box{
+	min-height: 80rpx!important;
+	line-height: 80rpx!important;
+	font-size: 40rpx!important;
+}
+.counter-symbol-box{
+	width: 90rpx!important;
+	font-size: 40rpx!important;
 }

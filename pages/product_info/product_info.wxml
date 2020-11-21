@@ -53,44 +53,24 @@
 				<text class="item-title">规格：</text>
 			</view>
 			<view class="operate-item-box">
-				<view class="item-specification-box">
-					<text>你猜猜</text>
+				<view wx:for="{{product_info.specifications}}" wx:key="id" 
+				class="{{item.id == specification_info.id?'item-specification-box selected':'item-specification-box'}}"
+				bindtap="change_specification" data-id="{{item.id}}"
+				>
+					<text>{{item.name}}</text>
 				</view>
-				<view class="item-specification-box">
-					<text>你猜猜</text>
-				</view>
-				<view class="item-specification-box">
-					<text>你猜猜</text>
-				</view>
-
-				<view class="item-specification-box">
-					<text>你猜猜</text>
-				</view>
-				<view class="item-specification-box">
-					<text>你猜猜</text>
-				</view>
-				<view class="item-specification-box">
-					<text>你猜猜</text>
-				</view>
-
-				<view class="item-specification-box">
-					<text>你猜猜</text>
-				</view>
-				<view class="item-specification-box">
-					<text>你猜猜</text>
-				</view>
-
-				<view class="item-specification-box selected">
-					<text>你猜猜</text>
-				</view>
-				<view class="item-specification-box">
-					<text>你猜猜</text>
-				</view>
-				<view class="item-specification-box">
-					<text>你猜猜</text>
-				</view>
-
 			</view>
+		</view>
+		<view class="num-box">
+			<view>
+				<text class="item-title">订购数量：</text>
+			</view>
+			<l-counter 
+				l-class="counter-box" l-count-class="counter-item-box" l-symbol-class="counter-symbol-box" 
+				count="1" min="1" max="{{specification_info.stock}}"
+				bind:linout="counter_out"
+			/>
+			<l-toast />
 		</view>
 		
 	</view>

@@ -15,7 +15,19 @@ Page({
 			interval: 2000,
 			duration: 500
 		},
+		specification_info:{
+			stock:10,
+		}
 
+	},
+	//切换规格信息
+	change_specification:function(e){
+		let that = this;
+		let click_id = e.currentTarget.dataset.id;
+		that.setData({
+			specification_id: click_id
+		});
+		that.get_specification_data();
 	},
 	//获取规格数据
 	get_specification_data:function(){
@@ -49,6 +61,13 @@ Page({
 					
 				})
 			}
+		})
+	},
+	//超出数量提醒
+	counter_out:function(){
+		wx.lin.showToast({
+			title: '超出货品库存',
+			icon: 'warning'
 		})
 	},
 	/**

@@ -17,7 +17,6 @@ const formatNumber = n => {
 const getWindowHeight = () => {
   try {
     const res = wx.getSystemInfoSync();
-    console.log(res)
     // 获取可使用窗口宽度
     let clientHeight = res.windowHeight;
     // 获取可使用窗口高度
@@ -26,12 +25,10 @@ const getWindowHeight = () => {
     let ratio = 750 / clientWidth;
     // 算出高度(单位rpx)
     let height = clientHeight * ratio;
-    console.log(height,res)
     // 设置高度
     return height;
   } catch (e) {
     // Do something when catch error
-    console.log(e)
   }
 }
 
