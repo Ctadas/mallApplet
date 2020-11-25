@@ -1,0 +1,16 @@
+<view class="user-box">
+	<view class="usre-info-box">
+		<l-card  type="primary" 
+			l-img-class="user-info-img" 
+			l-class="user-info-card"
+			position="left" 
+			image="/images/not_login.png">
+		
+		<view class="content">
+			
+		很简单
+		</view>
+	</l-card>
+	<button class="login-btn" open-type="getUserInfo" bindgetuserinfo="get_user_info"  plain="true"></button>
+	</view>
+</view>

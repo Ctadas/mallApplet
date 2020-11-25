@@ -4,7 +4,8 @@
 		"pages/logs/logs",
 		"pages/classification/classification",
 		"pages/product_list/product_list",
-		"pages/product_info/product_info"
+		"pages/product_info/product_info",
+		"pages/user/user"
 	],
 	"window": {
 		"backgroundTextStyle": "light",
@@ -23,7 +24,11 @@
 			},
 			{
 				"pagePath": "pages/classification/classification",
-				"text": "分类"
+				"text": "首页"
+			},
+			{
+				"pagePath": "pages/user/user",
+				"text": "用户"
 			}
 		]
 	},

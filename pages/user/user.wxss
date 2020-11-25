@@ -1,0 +1,33 @@
+/* pages/user/user.wxss */
+.user-box{
+	height: 100%;
+	display: flex;
+	padding: 20rpx 0;
+	flex-direction: column;
+	box-sizing: border-box;
+	background-color: rgb(249,249,249);
+}
+.usre-info-box{
+	position: relative;
+}
+.login-btn{
+	position: absolute;
+    left: 0;
+    top: 0;
+    border: none!important;
+    width: 100%!important;
+	height: 100%;
+	border: none;
+}
+.user-info-card{
+	display: flex;
+	box-sizing: border-box;
+	background: #90c6ff!important;
+	color:white;
+}
+.user-info-img{
+	border-radius: 50%;
+	align-self: center;
+	width: 90rpx!important;
+	height: 90rpx!important;
+}
