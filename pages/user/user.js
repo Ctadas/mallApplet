@@ -10,10 +10,10 @@ Page({
 	},
 	get_user_info: function(){
 		wx.setStorage({
-			key:"key",
+			key:"access_token",
 			data:"value",
 			success:function(res){
-				user_management.getStorage();
+				user_management.login();
 			}
 		})
 	},

@@ -67,11 +67,12 @@
 			</view>
 			<l-counter 
 				l-class="counter-box" l-count-class="counter-item-box" l-symbol-class="counter-symbol-box" 
-				count="1" min="1" max="{{specification_info.stock}}"
+				count="{{purchase_quantity}}" min="1" max="{{specification_info.stock}}"
 				bind:linout="counter_out"
 			/>
 			<l-toast />
 		</view>
+		<button bindtap="test">测试</button>
 		
 	</view>
 </view>

@@ -41,15 +41,20 @@ Page({
 				page_size: page_size
 			},
 			success: function (res) {
-				let data = res.data.results;
-				// 瀑布流渲染
-				wx.lin.renderWaterFlow(data, false, () => {
-					page = page+1;
-					that.setData({
-						recommended_page:page,
-						recommended_data_count: res.data.count
+				let code = res.data.code;
+				let data = res.data.data.results;
+				let count = res.data.data.cout;
+				if(code == 0){
+					// 瀑布流渲染
+					wx.lin.renderWaterFlow(data, false, () => {
+						page = page+1;
+						that.setData({
+							recommended_page:page,
+							recommended_data_count: count
+						})
 					})
-				})
+				}
+				
 			}
 		})
 	},

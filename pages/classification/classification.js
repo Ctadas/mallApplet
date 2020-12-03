@@ -42,8 +42,10 @@ Page({
 		wx.request({
 			url: request_urls.get_classifications,
 			success:function(res){
+        let code = res.data.code;
+        let data = res.data.data;
 				that.setData({
-					classifications : res.data
+					classifications : data
 				})
 			}
 		})
