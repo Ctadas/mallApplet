@@ -1,5 +1,5 @@
 <!--pages/index/index.wxml-->
-<view class="container">
+<view class="container index-box" style="min-height:{{windowHeight}}rpx">
     <view class="swiper-box">
         <swiper class="swiper" indicator-dots="{{ swiperConfig.indicatorDots }}" autoplay="{{ swiperConfig.autoplay }}" interval="{{ swiperConfig.interval }}" duration="{{ swiperConfig.duration }}">
             <block wx:for="{{ swiperConfig.data }}" wx:key="*this">

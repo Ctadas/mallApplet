@@ -1,5 +1,7 @@
 /* pages/index/index.wxss */
-
+.index-box{
+    background-color: rgb(240, 240, 240);
+}
 .swiper-box{
 	width: 100%;
     position: relative;

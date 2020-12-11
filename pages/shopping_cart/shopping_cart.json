@@ -6,7 +6,6 @@
     "l-toast": "/miniprogram_npm/lin-ui/toast/index",
     "l-button":"/miniprogram_npm/lin-ui/button/index",
     "l-icon":"/miniprogram_npm/lin-ui/icon/index",
-    "l-badge":"/miniprogram_npm/lin-ui/badge/index",
-    "l-loading":"/miniprogram_npm/lin-ui/loading/index"
+    "l-status-show":"/miniprogram_npm/lin-ui/status-show/index"
   }
 }

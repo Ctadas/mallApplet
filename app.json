@@ -5,7 +5,8 @@
 		"pages/classification/classification",
 		"pages/product_list/product_list",
 		"pages/product_info/product_info",
-		"pages/user/user"
+		"pages/user/user",
+		"pages/shopping_cart/shopping_cart"
 	],
 	"window": {
 		"backgroundTextStyle": "light",
@@ -20,11 +21,15 @@
 		"list": [
 			{
 				"pagePath": "pages/index/index",
-				"text": "组件"
+				"text": "首页"
 			},
 			{
 				"pagePath": "pages/classification/classification",
-				"text": "首页"
+				"text": "分类"
+			},
+			{
+				"pagePath": "pages/shopping_cart/shopping_cart",
+				"text": "购物车"
 			},
 			{
 				"pagePath": "pages/user/user",

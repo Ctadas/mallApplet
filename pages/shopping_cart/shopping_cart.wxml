@@ -1,0 +1,5 @@
+<!--pages/shopping_cart/shopping_cart.wxml-->
+<l-status-show show="{{false}}" type="cart" bind:lintap="jump_classification"></l-status-show>
+<view class="container">
+
+</view>

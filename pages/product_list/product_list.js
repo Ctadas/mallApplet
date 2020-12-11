@@ -120,19 +120,20 @@ Page({
 				ordering: ordering_field,
 			},
 			success: function (res) {
-				let product_list = that.data.product_list;
-				if(page == 1){
-					product_list = res.data.results;
-				}else{
-					product_list = product_list.concat(res.data.results);
+				if(res.data.code == 0){
+					let product_list = that.data.product_list;
+					if(page == 1){
+						product_list = res.data.data.results;
+					}else{
+						product_list = product_list.concat(res.data.data.results);
+					}
+					page = page+1;
+					that.setData({
+						product_list: product_list,
+						page: page,
+						data_cout: res.data.data.count
+					});
 				}
-				page = page+1;
-				that.setData({
-					product_list: product_list,
-					page: page,
-					data_cout: res.data.count
-				});
-				
 			}
 		})
 	},

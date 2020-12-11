@@ -1,78 +1,98 @@
-<view class="container info-overview"  style="height:{{windowHeight}}rpx">
-    <view class="swiper-box">
-        <swiper class="swiper" indicator-dots="{{ swiperConfig.indicatorDots }}" autoplay="{{ swiperConfig.autoplay }}" interval="{{ swiperConfig.interval }}" duration="{{ swiperConfig.duration }}">
-            <block >
-                <swiper-item>
-                    <view class="swiper-item">
-						<image src="{{specification_info.image}}"></image>
-					</view>
-                </swiper-item>
-            </block>
-        </swiper>
-	</view>
-	<view class="product-info-box">
-		<view class="info-title">
-			<text>{{product_info.name}}  {{specification_info.name}}</text>
-		</view>
-		<view class="info-content">
-			<view class="info-item-box">
-				<text class="item-title">订货价：</text>
-				<l-price unit="￥" value="{{specification_info.discounted_prices}}" value-color="#ad0e11" unit-color="#ad0e11" value-size="36"></l-price>
-			</view>
-			<view  class="info-item-box">
-				<text class="item-title">零售价：</text>
-				<l-price unit="￥" value="{{specification_info.price}}" value-color="#ad0e11" unit-color="#ad0e11" value-size="36"></l-price>
-			</view>
-		</view>
-		<view class="info-content">
-			<view  class="info-item-box">
-				<text class="item-title">型号：</text>
-				<text>{{specification_info.model}}</text>
-			</view>
-			<view  class="info-item-box">
-				<text class="item-title">类别：</text>
-				<block  wx:for="{{product_info.type_classification}}" wx:key="id">
-					<text>{{item.name}}</text>
-					<text wx:if="{{index != product_info.type_classification.length-1}}">、</text>
+<l-toast />
+<l-loading
+  bg-color="#f3f3f3"
+  z-index="776"
+  opacity="1"
+  type="circle"
+  size="large"
+  show="{{loading_show}}"
+  full-screen="{{true}}"
+>
+</l-loading>
+<view style="height:{{windowHeight}}rpx">
+	<view class="container info-overview" style="min-height:{{windowHeight}}rpx">
+		<view class="swiper-box">
+			<swiper class="swiper" indicator-dots="{{ swiperConfig.indicatorDots }}" autoplay="{{ swiperConfig.autoplay }}" interval="{{ swiperConfig.interval }}" duration="{{ swiperConfig.duration }}">
+				<block >
+					<swiper-item>
+						<view class="swiper-item">
+							<image src="{{specification_info.image}}"></image>
+						</view>
+					</swiper-item>
 				</block>
-				
-			</view>
+			</swiper>
 		</view>
-		<view class="info-content">
-			<view  class="info-item-box">
-				<text class="item-title">库存：</text>
-				<text>{{specification_info.stock}}</text>
+		<view class="product-info-box">
+			<view class="info-title">
+				<text>{{product_info.name}}  {{specification_info.name}}</text>
 			</view>
-			<view  class="info-item-box">
-				<text class="item-title">销量：</text>
-				<text>{{specification_info.sales}}</text>
+			<view class="info-content">
+				<view class="info-item-box">
+					<text class="item-title">订货价：</text>
+					<l-price unit="￥" value="{{specification_info.discounted_prices}}" value-color="#ad0e11" unit-color="#ad0e11" value-size="36"></l-price>
+				</view>
+				<view  class="info-item-box">
+					<text class="item-title">零售价：</text>
+					<l-price unit="￥" value="{{specification_info.price}}" value-color="#ad0e11" unit-color="#ad0e11" value-size="36"></l-price>
+				</view>
 			</view>
-		</view>
-		<view class="operate-box">
-			<view>
-				<text class="item-title">规格：</text>
+			<view class="info-content">
+				<view  class="info-item-box">
+					<text class="item-title">型号：</text>
+					<text>{{specification_info.model}}</text>
+				</view>
+				<view  class="info-item-box">
+					<text class="item-title">类别：</text>
+					<block  wx:for="{{product_info.type_classification}}" wx:key="id">
+						<text>{{item.name}}</text>
+						<text wx:if="{{index != product_info.type_classification.length-1}}">、</text>
+					</block>
+					
+				</view>
 			</view>
-			<view class="operate-item-box">
-				<view wx:for="{{product_info.specifications}}" wx:key="id" 
-				class="{{item.id == specification_info.id?'item-specification-box selected':'item-specification-box'}}"
-				bindtap="change_specification" data-id="{{item.id}}"
-				>
-					<text>{{item.name}}</text>
+			<view class="info-content">
+				<view  class="info-item-box">
+					<text class="item-title">库存：</text>
+					<text>{{specification_info.stock}}</text>
+				</view>
+				<view  class="info-item-box">
+					<text class="item-title">销量：</text>
+					<text>{{specification_info.sales}}</text>
 				</view>
 			</view>
 		</view>
-		<view class="num-box">
-			<view>
-				<text class="item-title">订购数量：</text>
+		<view class="product-info-box">
+			<view class="operate-box">
+				<view>
+					<text class="item-title">规格：</text>
+				</view>
+				<view class="operate-item-box">
+					<view wx:for="{{product_info.specifications}}" wx:key="id" 
+					class="{{item.id == specification_info.id?'item-specification-box selected':'item-specification-box'}}"
+					bindtap="change_specification" data-id="{{item.id}}"
+					>
+						<text>{{item.name}}</text>
+					</view>
+				</view>
 			</view>
-			<l-counter 
-				l-class="counter-box" l-count-class="counter-item-box" l-symbol-class="counter-symbol-box" 
-				count="{{purchase_quantity}}" min="1" max="{{specification_info.stock}}"
-				bind:linout="counter_out"
-			/>
-			<l-toast />
+			<view class="num-box">
+				<view>
+					<text class="item-title">订购数量：</text>
+				</view>
+				<l-counter 
+					l-class="counter-box" l-count-class="counter-item-box" l-symbol-class="counter-symbol-box" 
+					count="{{counter_count}}" min="1" max="{{specification_info.stock}}"
+					bind:linout="counter_out" bind:linchange="counter_change"
+				/>
+			</view>
+			
 		</view>
-		<button bindtap="test">测试</button>
-		
+		<view style="margin-bottom:50px"></view>
+	</view>
+	<view class="btn-box">
+		<l-badge value="{{product_list.length}}" show="{{true}}">
+			<l-icon name="cart" size="60" color="#3683d6"/>
+		</l-badge>
+		<l-button shape="circle" width="500" type="default" bindtap="add_product">加入购物车</l-button>
 	</view>
 </view>

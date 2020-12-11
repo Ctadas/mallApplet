@@ -2,6 +2,7 @@
   "usingComponents": {
     "l-grid": "/miniprogram_npm/lin-ui/grid/index",
     "l-grid-item": "/miniprogram_npm/lin-ui/grid-item/index",
-    "l-card": "/miniprogram_npm/lin-ui/card/index"
+    "l-card": "/miniprogram_npm/lin-ui/card/index",
+    "l-toast": "/miniprogram_npm/lin-ui/toast/index"
   }
 }

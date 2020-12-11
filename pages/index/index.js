@@ -1,5 +1,6 @@
 // pages/index/index.js
 let request_urls = require('../../utils/request_urls.js');
+let utils = require('../../utils/util.js');
 Page({
 
 	/**
@@ -43,7 +44,7 @@ Page({
 			success: function (res) {
 				let code = res.data.code;
 				let data = res.data.data.results;
-				let count = res.data.data.cout;
+				let count = res.data.data.count;
 				if(code == 0){
 					// 瀑布流渲染
 					wx.lin.renderWaterFlow(data, false, () => {
@@ -62,6 +63,11 @@ Page({
 	 * 生命周期函数--监听页面加载
 	 */
 	onLoad: function (options) {
+		let that = this;
+		let window_height = utils.getWindowHeight();
+		that.setData({
+			windowHeight: window_height
+		});
 		this.get_recommended_data();
         
 	},

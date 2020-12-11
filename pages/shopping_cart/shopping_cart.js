@@ -1,59 +1,45 @@
-// pages/user/user.js
+// pages/shopping_cart/shopping_cart.js
+let request_urls = require('../../utils/request_urls.js');
 let user_management = require('../../utils/user_management.js');
+let utils = require('../../utils/util.js');
 Page({
 
 	/**
 	 * 页面的初始数据
 	 */
 	data: {
-		user_info:{
-			avatarUrl:'/images/not_login.png'
-		},
-		is_login:false
+
 	},
-	get_user_info: function(){
+	//跳转之分类
+	jump_classification:function(){
+		wx.switchTab({
+		  url: '/pages/classification/classification',
+		})
+	},
+	//获取购物车
+	get_shopping_cart:function(){
 		let that = this;
-		let login_result = user_management.login(true);
-		login_result.then(function(res){
-			if(res){
-				wx.getUserInfo({
-					success: function(res) {
-					  var userInfo = res.userInfo
-					  that.setData({
-						user_info : userInfo
-					  })
-					}
-				})
-				that.setData({
-					is_login:res
+		let url = request_urls.shopping_cart;
+		let method = 'GET';
+		let data = {};
+		let callback = (res) => {
+			if(res.data.code == 0){
+				
+			}else{
+				wx.lin.showToast({
+					title: '获取购物车失败',
+					icon: 'error'
 				})
 			}
-		})
+		};
+		user_management.unified_request(url,method,data,callback);
 		
 	},
-
 	/**
 	 * 生命周期函数--监听页面加载
 	 */
 	onLoad: function (options) {
-		let that = this;
-		let is_login = user_management.check_and_login();
-		is_login.then(function(res){
-			if(res){
-				wx.getUserInfo({
-					success: function(res) {
-					  var userInfo = res.userInfo
-					  that.setData({
-						user_info : userInfo
-					  })
-					}
-				})
-				that.setData({
-					is_login:res
-				})
-			}
-		})
-		
+	
 	},
 
 	/**

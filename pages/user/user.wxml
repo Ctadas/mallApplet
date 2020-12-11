@@ -1,16 +1,19 @@
+<l-toast />
 <view class="user-box">
 	<view class="usre-info-box">
 		<l-card  type="primary" 
 			l-img-class="user-info-img" 
 			l-class="user-info-card"
 			position="left" 
-			image="/images/not_login.png">
+			image="{{user_info.avatarUrl}}">
 		
 		<view class="content">
 			
-		很简单
+		{{user_info.nickName}}
+		<text  wx:if="{{is_login == false}}">请登录！</text>
 		</view>
 	</l-card>
-	<button class="login-btn" open-type="getUserInfo" bindgetuserinfo="get_user_info"  plain="true"></button>
+	<button wx:if="{{is_login == false}}" class="login-btn" open-type="getUserInfo" bindgetuserinfo="get_user_info"  plain="true"></button>
+	
 	</view>
 </view>

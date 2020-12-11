@@ -1,26 +1,134 @@
 import { promisic } from '../miniprogram_npm/lin-ui/utils/util.js'
 let request_urls = require('./request_urls.js');
 
+function unified_request(url,method,data,callback){
+	let is_login = check_and_login(true);
+	is_login.then(function(res){
+		if(res){
+			let token_storange = wx.getStorageSync('access_token');
+			if(token_storange){
+				wx.request({
+					url: url,
+					method:method,
+					data:data,
+					header:{
+						'Authorization': 'Bearer ' + token_storange
+					},
+					success:function(res){
+						callback(res);
+					}
+				})
+			}else{
+				console.log('获取缓存token失败')
+			}
+		}else{
+			console.log('登陆出错')
+		}
+	})
+}
 
-async function get_storage(){
-	const storage_res = await promisic(wx.getStorage)({
-		key: 'access_token',
-	}).catch(()=>{})
-	if(storage_res){
-		let access_token = storage_res.data;
-		let token_status = check_token(access_token);
-		let WXsession_status = check_WXsession();
-	}else{
-		console.log('error')
+async function check_and_login(show_tip){
+	let strorage_value = wx.getStorageSync('access_token')
+	//判断没有token的缓存
+	if (strorage_value) {
+		const check_WXsession_res = await promisic(wx.checkSession)()
+		const checkToken_res = await promisic(wx.request)({
+			url: request_urls.check_token,
+			method:'POST',
+			data: {
+				token:strorage_value
+			},
+		})
+		if(check_WXsession_res.errMsg == 'checkSession:ok' && checkToken_res.data.code == 0){
+			return true;
+		}else{
+			return login(false);
+		}
+	}
+	//判断没有token的缓存，直接跳转到登陆页面进行登陆
+	else{
+		if(show_tip){
+			wx.lin.showToast({
+				title: '请先登陆再进行操作！',
+				icon: 'error',
+				success: (res) => {
+				 
+				},
+				complete: (res) => {
+					
+				}
+			})
+			return false;
+		}else{
+			return false;
+		}
+		
 	}
 }
 
-async function login(){
+
+
+async function login(show_tip){
 	const wx_login_res = await promisic(wx.login)()
 	if(wx_login_res){
-		return request_login(wx_login_res.code);
+		let login_result =  await promisic(wx.request)({
+			url: request_urls.login,
+			method: 'POST',
+			data:{
+				code: wx_login_res.code
+			}
+		})
+		// 获取后台用户失败
+		if(login_result.data.code == 0){
+			let token = login_result.data.data.token.access;
+			let user_id = login_result.data.data.user_id;
+			try {
+				wx.setStorageSync('access_token', token)
+				//wx.setStorageSync('user_id', user_id)
+			} 
+			catch (e) {
+	
+			}
+			if(show_tip){
+				wx.lin.showToast({
+					title: '登陆成功！',
+					icon: 'success',
+					success: (res) => {
+					},
+					complete: (res) => {
+					}
+				})
+				return true;
+			}
+			else{
+				return true;
+			}
+		}
+		else{
+			wx.lin.showToast({
+				title: '后台登陆失败，请重试！',
+				icon: 'error',
+				success: (res) => {
+					
+				},
+				complete: (res) => {
+					
+				}
+			})
+			return false;
+		}
 	}else{
-		console.log(2)
+		wx.lin.showToast({
+			title: '登陆发生错误，请重新登陆！',
+			icon: 'error',
+			success: (res) => {
+			 
+			},
+			complete: (res) => {
+			 
+			}
+		})
+		return false;
 	}
 }
 
@@ -43,18 +151,17 @@ async function request_login(code){
 		catch (e) {
 
 		}
-		return  true
+		return  true;
 	}else{
-		console.log(res)
+		
+		return  false;
 	}
 }
 
 // 检查微信session是否过期
 async function check_WXsession(access_token){
 	const check_WXsession_res = await promisic(wx.checkSession)()
-									.catch(()=>{
-										return false
-									})
+									
 	if(check_WXsession_res){
 		return true
 	}else{
@@ -77,8 +184,9 @@ async function check_token(access_token){
 }
 
 module.exports = {
-	get_storage:get_storage,
 	check_WXsession:check_WXsession,
 	check_token:check_token,
-	login:login
+	login:login,
+	check_and_login:check_and_login,
+	unified_request:unified_request
 }
