@@ -1,3 +1,4 @@
+<l-status-show show="{{product_list.length==0}}" type="product"></l-status-show>
 <view>
 	<view class="order-box">
 		<l-grid rowNum="4">

@@ -1,7 +1,6 @@
 /* pages/product_info/product_info.wxss */
 .info-overview{
 	background-color: rgb(239,239,239);
-	position: relative;
 	height: auto;
 }
 .swiper-box{
@@ -86,7 +85,7 @@
 	left:0;
 	background-color: white;
 	width: 100%;
-	padding:10rpx;
+	padding:20rpx;
 	box-sizing: border-box;
 	position: fixed;
 	justify-content: space-between;

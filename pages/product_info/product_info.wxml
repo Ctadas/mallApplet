@@ -90,8 +90,8 @@
 		<view style="margin-bottom:50px"></view>
 	</view>
 	<view class="btn-box">
-		<l-badge value="{{product_list.length}}" show="{{true}}">
-			<l-icon name="cart" size="60" color="#3683d6"/>
+		<l-badge value="{{product_list.length}}" show="{{product_list.length !=0}}">
+			<l-icon name="cart" size="60" color="#3683d6" bindtap="to_shoppingcart"/>
 		</l-badge>
 		<l-button shape="circle" width="500" type="default" bindtap="add_product">加入购物车</l-button>
 	</view>

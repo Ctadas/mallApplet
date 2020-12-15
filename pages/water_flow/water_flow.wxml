@@ -1,5 +1,5 @@
 <!--pages/water_flow/water_flow.wxml-->
-<l-card full type="cover"   image="{{data.image}}" title="{{data.product.name}}  {{data.name}}" l-class="life-container" l-img-class="life-img" l-title-class="life-title" bindtap="onProduct">
+<l-card full type="cover" bindtap="to_info" data-item="{{data}}"  image="{{data.image}}" title="{{data.product.name}}  {{data.name}}" l-class="life-container" l-img-class="life-img" l-title-class="life-title" >
     <view class='life-product-contianer'>
         <!-- <view class='art-content'>{{data.name}}</view> -->
         <view class='price-container'>

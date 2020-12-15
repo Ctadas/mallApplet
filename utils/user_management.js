@@ -1,7 +1,7 @@
 import { promisic } from '../miniprogram_npm/lin-ui/utils/util.js'
 let request_urls = require('./request_urls.js');
 
-function unified_request(url,method,data,callback){
+function unified_request(url,method,data,callback,error_callback=()=>{}){
 	let is_login = check_and_login(true);
 	is_login.then(function(res){
 		if(res){
@@ -19,10 +19,13 @@ function unified_request(url,method,data,callback){
 					}
 				})
 			}else{
+				error_callback();
 				console.log('获取缓存token失败')
 			}
 		}else{
-			console.log('登陆出错')
+			error_callback();
+			console.log('登陆失败')
+			
 		}
 	})
 }
@@ -48,16 +51,16 @@ async function check_and_login(show_tip){
 	//判断没有token的缓存，直接跳转到登陆页面进行登陆
 	else{
 		if(show_tip){
-			wx.lin.showToast({
-				title: '请先登陆再进行操作！',
-				icon: 'error',
-				success: (res) => {
+			// wx.lin.showToast({
+			// 	title: '请先登陆再进行操作！',
+			// 	icon: 'error',
+			// 	success: (res) => {
 				 
-				},
-				complete: (res) => {
+			// 	},
+			// 	complete: (res) => {
 					
-				}
-			})
+			// 	}
+			// })
 			return false;
 		}else{
 			return false;

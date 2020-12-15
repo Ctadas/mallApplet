@@ -1,5 +1,50 @@
 <!--pages/shopping_cart/shopping_cart.wxml-->
-<l-status-show show="{{false}}" type="cart" bind:lintap="jump_classification"></l-status-show>
-<view class="container">
-
+<l-status-show show="{{product_list.length == 0}}" type="cart" bind:lintap="jump_classification"></l-status-show>
+<view style="height:{{windowHeight}}rpx">
+	<view class="container info-overview" style="min-height:{{windowHeight}}rpx">
+		<view class="info-box">
+			<view class="info-item-box" wx:for="{{product_list}}" wx:key="id">
+				<l-mask show="{{item.mask_show}}" center="{{true}}" l-class="mask-box" locked="{{false}}">
+					<view class="mask-content">
+						<l-button shape="semicircle" l-class="mask-btn" bindtap="to_info" data-item="{{item}}">详情</l-button>
+						<l-button shape="semicircle" type="error" l-class="mask-btn" bindtap="delete_product" data-item_id="{{item.id}}">删除</l-button>
+					</view>
+				</l-mask>
+				<l-icon name="ellipsis" slot="more" size="30" l-class="more-icon" bindtap="show_more" data-item_id="{{item.id}}"/>
+				<l-card type="primary"  data-item="{{item}}"
+					image="{{item.product.image}}" full="{{true}}"
+					title="{{item.product.product.name}}" l-class="card-box" l-title-class="item-title" l-img-class="item-img">
+					<view class="item-content">
+						<view class="item-info">
+							<l-grid rowNum="2">
+								<l-grid-item key="1" slot="1" l-grid-item-class="item-grid">
+									<span>规格：{{item.product.name}}</span>
+								</l-grid-item>
+							</l-grid>
+						</view>
+						<view class="item-price-box">
+							<l-price unit="￥" value="{{item.product.price}}" value-color="#ad0e11" unit-color="#ad0e11" value-size="36"></l-price>
+							<l-counter 
+								l-class="counter-box" l-count-class="counter-item-box" l-symbol-class="counter-symbol-box" 
+								count="{{item.purchase_quantity}}"
+								data-product-list-id="{{item.id}}"
+								data-purchase-quantity="{{item.purchase_quantity}}"
+								min="1" 
+								max="{{item.product.stock}}"
+								bind:linout="counter_out" 
+								bind:linchange="counter_change"
+							/>
+						</view>
+					</view>
+				</l-card>
+			</view>
+		</view>
+	</view>
+	<view class="bottom-box" wx:if="{{product_list.length != 0}}">
+		<view>
+			<text>共计：</text>
+			<l-price unit="￥" value="{{shopping_cart.total_price}}" value-color="#ad0e11" unit-color="#ad0e11" value-size="36"></l-price>
+		</view>
+		<l-button shape="circle" width="400" type="default" bindtap="add_product">结算</l-button>
+	</view>
 </view>

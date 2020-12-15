@@ -25,9 +25,11 @@ Page({
 		counter_count:1,
 		purchase_quantity:1,
 		loading_show:true,
+		product_list:[]
 
 
 	},
+	//商品添加
 	add_product:function(){
 		let that = this;
 		let specification_id = that.data.specification_id;
@@ -35,6 +37,18 @@ Page({
 		let has_specification_id = that.data.has_specification_id;
 		let shopping_cart_id = that.data.shopping_cart_id;
 		let purchase_quantity = that.data.purchase_quantity;
+		let error_callback = ()=>{
+			wx.lin.showToast({
+				title: '请先登陆再进行操作！',
+				icon: 'error',
+				success: (res) => {
+					
+				},
+				complete: (res) => {
+					
+				}
+			})
+		};
 		if(has_specification){
 			let url = request_urls.product_list+has_specification_id+'/';
 			let method = 'PUT';
@@ -51,7 +65,7 @@ Page({
 					})
 				}
 			};
-			user_management.unified_request(url,method,data,callback);
+			user_management.unified_request(url,method,data,callback,error_callback);
 		}else{
 			let url = request_urls.product_list;
 			let method = 'POST';
@@ -71,7 +85,7 @@ Page({
 					})
 				}
 			};
-			user_management.unified_request(url,method,data,callback);
+			user_management.unified_request(url,method,data,callback,error_callback);
 		}
 		
 	},
@@ -110,7 +124,10 @@ Page({
 				})
 			}
 		};
-		user_management.unified_request(url,method,data,callback);
+		let error_callback = () =>{
+			that.data.loding_ready();
+		};
+		user_management.unified_request(url,method,data,callback,error_callback);
 		
 	},
 	//切换规格信息
@@ -194,6 +211,12 @@ Page({
 					})
 				}
 			}
+		})
+	},
+	//跳转购物车
+	to_shoppingcart:function(){
+		wx.switchTab({
+		  url: '/pages/shopping_cart/shopping_cart',
 		})
 	},
 	//超出数量提醒

@@ -1,4 +1,5 @@
-let domain = 'http://127.0.0.1:8000/';
+//let domain = 'http://127.0.0.1:8000/';
+let domain = 'http://192.168.1.107:8000/';
 
 module.exports = {
 	base_domain: domain,
