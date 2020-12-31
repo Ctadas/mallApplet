@@ -6,6 +6,7 @@
 	"l-price": "/miniprogram_npm/lin-ui/price/index",
 	"l-loadmore": "/miniprogram_npm/lin-ui/loadmore/index",
 	"l-icon": "/miniprogram_npm/lin-ui/icon/index",
-	"l-status-show":"/miniprogram_npm/lin-ui/status-show/index"
+	"l-status-show":"/miniprogram_npm/lin-ui/status-show/index",
+	"l-loading":"/miniprogram_npm/lin-ui/loading/index"
   }
 }

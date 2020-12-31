@@ -13,23 +13,38 @@ Page({
 	},
 	get_user_info: function(){
 		let that = this;
-		let login_result = user_management.login(true);
-		login_result.then(function(res){
-			if(res){
-				wx.getUserInfo({
-					success: function(res) {
-					  var userInfo = res.userInfo
-					  that.setData({
-						user_info : userInfo
-					  })
-					}
-				})
-				that.setData({
-					is_login:res
-				})
+		wx.getSetting({
+			success (res) {
+				if(res.authSetting["scope.userInfo"]){
+					let login_result = user_management.login(true);
+					login_result.then(function(res){
+						if(res){
+							wx.getUserInfo({
+								success: function(res) {
+								  var userInfo = res.userInfo
+								  that.setData({
+									user_info : userInfo
+								  })
+								}
+							})
+							that.setData({
+								is_login:res
+							})
+						}else{
+							wx.lin.showToast({
+								title: '登陆出错，请重新授权登陆！',
+								icon: 'error'
+							});
+						}
+					})
+				}else{
+					wx.lin.showToast({
+						title: '您拒绝了授权，请重新授权登陆！',
+						icon: 'error'
+					});
+				}
 			}
 		})
-		
 	},
 
 	/**

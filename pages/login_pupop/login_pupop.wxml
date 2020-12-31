@@ -1,0 +1,23 @@
+<l-toast />
+<l-loading
+  bg-color="#f3f3f3"
+  z-index="776"
+  opacity="1"
+  type="circle"
+  size="large"
+  show="{{loading_show}}"
+  full-screen="{{true}}"
+>
+</l-loading>
+<l-popup show="{{pupop_show}}" content-align="center" locked="{{true}}" z-index="200">
+	<view class='pupop-content'>
+		<l-icon name="warning" color="#F4516C" size="70" />
+		<view class="pupop-text-box">
+			<text>您尚未授权登陆，请登陆后再进行操作！</text>
+		</view>
+		<view class="pupop-btn-box">
+			<l-button plain="{{true}}" shape="circle" bindtap="hide_pupop">取消</l-button>
+			<l-button shape="circle" open-type="getUserInfo" bindgetuserinfo="to_login">授权</l-button>
+		</view>
+	</view>
+</l-popup>

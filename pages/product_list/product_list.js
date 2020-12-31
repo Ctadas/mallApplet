@@ -26,7 +26,7 @@ Page({
 			},
 		],
 		type_id:null,
-		product_list:[],
+		loading_show:true,
 		page:1,
 		page_size:5,
 		ordering_field:'name', //默认排序字段
@@ -115,6 +115,7 @@ Page({
 			url: request_urls.get_specification_info,
 			data: {
 				product__type_classification__id: type_id,
+				off_shelf:false,
 				page: page,
 				page_size: page_size,
 				ordering: ordering_field,
@@ -133,7 +134,14 @@ Page({
 						page: page,
 						data_cout: res.data.data.count
 					});
+				}else{
+					that.setData({
+						product_list:[]
+					})
 				}
+				that.setData({
+					loading_show :false
+				})
 			}
 		})
 	},
@@ -196,6 +204,9 @@ Page({
 		let page_size = that.data.page_size;
 		let data_count = that.data.data_cout;
 		if ((page - 1) * page_size < data_count) {
+			that.setData({
+				loading_show :true
+			})
 			loadmore_config.show = true;
 			loadmore_config.type = "loading";
 			that.setData({

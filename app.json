@@ -6,7 +6,8 @@
 		"pages/product_list/product_list",
 		"pages/product_info/product_info",
 		"pages/user/user",
-		"pages/shopping_cart/shopping_cart"
+		"pages/shopping_cart/shopping_cart",
+		"pages/order_form/order_form"
 	],
 	"window": {
 		"backgroundTextStyle": "light",
@@ -16,7 +17,7 @@
 	},
 	"tabBar": {
 		"color": "#a9b7b7",
-		"selectedColor": "#11cd6e",
+		"selectedColor": "#3683d6",
 		"backgroundColor": "white",
 		"list": [
 			{

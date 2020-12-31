@@ -38,16 +38,17 @@ Page({
 		let shopping_cart_id = that.data.shopping_cart_id;
 		let purchase_quantity = that.data.purchase_quantity;
 		let error_callback = ()=>{
-			wx.lin.showToast({
-				title: '请先登陆再进行操作！',
-				icon: 'error',
-				success: (res) => {
+			that.login_pupop.show_pupop();
+			// wx.lin.showToast({
+			// 	title: '请先登陆再进行操作！',
+			// 	icon: 'error',
+			// 	success: (res) => {
 					
-				},
-				complete: (res) => {
+			// 	},
+			// 	complete: (res) => {
 					
-				}
-			})
+			// 	}
+			// })
 		};
 		if(has_specification){
 			let url = request_urls.product_list+has_specification_id+'/';
@@ -233,13 +234,20 @@ Page({
 			purchase_quantity:res.detail.count
 		})
 	},
+	//子组件回调
+	login_handler:function(e){
+		let msg = e.detail.msg;
+		if(msg){
+			this.get_shopping_cart();
+		}
+	},
 	/**
 	 * 生命周期函数--监听页面加载
 	 */
 	onLoad: function (options) {
 		let that = this;
 		let window_height = utils.getWindowHeight();
-
+		that.login_pupop = that.selectComponent("#login_pupop");
 		let specification_id = options.specification_id;
 		let product_id = options.product_id;
 		//初次进入的加载调用

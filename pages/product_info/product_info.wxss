@@ -98,3 +98,6 @@ container-z{
     box-sizing: border-box;
     background-color: rgb(249,249,249)
 }
+.theme-color{
+	color:#3683d6;
+}

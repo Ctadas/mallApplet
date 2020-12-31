@@ -13,8 +13,8 @@
 }
 .info-item-box .more-icon{
 	position: absolute;
-	right: 15rpx;
-	top: 10rpx;
+	right: 20rpx;
+	top: 5rpx;
 }
 .mask-box{
 	position:absolute!important;
@@ -27,6 +27,7 @@
 	margin-right: 20rpx;
 }
 .card-box{
+	padding:50rpx 50rpx 30rpx 30rpx!important;
 	margin-bottom:20rpx!important;
 }
 .item-title{
@@ -69,4 +70,7 @@
 	position: fixed;
 	justify-content: space-between;
 	align-items: center;
+}
+.theme-color{
+	color:#3683d6
 }

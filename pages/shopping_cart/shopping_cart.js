@@ -9,7 +9,7 @@ Page({
 	 * 页面的初始数据
 	 */
 	data: {
-		product_list:[]
+		loading_show:true,
 	},
 	//跳转之分类
 	jump_classification:function(){
@@ -39,6 +39,9 @@ Page({
 	//更新商品列表
 	upload_product_list:function(product_list_id,purchase_quantity){
 		let that = this;
+		that.setData({
+			loading_show:true
+		})
 		let url = request_urls.product_list+product_list_id+'/';
 		let method = 'PUT';
 		let data = {
@@ -64,6 +67,9 @@ Page({
 	//删除购物车的商品
 	delete_product:function(e){
 		let that = this;
+		that.setData({
+			loading_show:true
+		})
 		let item_id = e.currentTarget.dataset.item_id;
 		let url = request_urls.product_list+item_id+'/';
 		let method = 'DELETE';
@@ -122,10 +128,38 @@ Page({
 					title: '获取购物车失败',
 					icon: 'error'
 				})
+				that.setData({
+					product_list:[]
+				})
 			}
+			that.setData({
+				loading_show:false
+			})
 		};
-		user_management.unified_request(url,method,data,callback);
+		let error_callback = () =>{
+			that.login_pupop.show_pupop();
+			that.setData({
+				product_list:[],
+				loading_show:false
+			})
+		};
+		user_management.unified_request(url,method,data,callback,error_callback);
 		
+	},
+	//子组件回调
+	login_handler:function(e){
+		let msg = e.detail.msg;
+		if(msg){
+			this.get_shopping_cart();
+		}
+	},
+	//结算时间
+	settlement:function(e){
+		let that = this;
+		let shopping_cart_id = that.data.shopping_cart.id;
+		wx.navigateTo({
+			url: '/pages/order_form/order_form?shopping_cart_id=' + shopping_cart_id,
+		})
 	},
 	/**
 	 * 生命周期函数--监听页面加载
@@ -133,7 +167,7 @@ Page({
 	onLoad: function (options) {
 		let that = this;
 		let window_height = utils.getWindowHeight();
-		
+		that.login_pupop = that.selectComponent("#login_pupop");
 		that.setData({
 			windowHeight:window_height
 		})

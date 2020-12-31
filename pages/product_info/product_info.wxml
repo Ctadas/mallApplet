@@ -9,6 +9,7 @@
   full-screen="{{true}}"
 >
 </l-loading>
+<login_pupop id="login_pupop" bind:login="login_handler"></login_pupop>
 <view style="height:{{windowHeight}}rpx">
 	<view class="container info-overview" style="min-height:{{windowHeight}}rpx">
 		<view class="swiper-box">
@@ -39,13 +40,13 @@
 			<view class="info-content">
 				<view  class="info-item-box">
 					<text class="item-title">型号：</text>
-					<text>{{specification_info.model}}</text>
+					<text class="theme-color">{{specification_info.model}}</text>
 				</view>
 				<view  class="info-item-box">
 					<text class="item-title">类别：</text>
 					<block  wx:for="{{product_info.type_classification}}" wx:key="id">
-						<text>{{item.name}}</text>
-						<text wx:if="{{index != product_info.type_classification.length-1}}">、</text>
+						<text class="theme-color">{{item.name}}</text>
+						<text class="theme-color" wx:if="{{index != product_info.type_classification.length-1}}">、</text>
 					</block>
 					
 				</view>
@@ -53,11 +54,11 @@
 			<view class="info-content">
 				<view  class="info-item-box">
 					<text class="item-title">库存：</text>
-					<text>{{specification_info.stock}}</text>
+					<text class="theme-color">{{specification_info.stock}}</text>
 				</view>
 				<view  class="info-item-box">
 					<text class="item-title">销量：</text>
-					<text>{{specification_info.sales}}</text>
+					<text class="theme-color">{{specification_info.sales}}</text>
 				</view>
 			</view>
 		</view>

@@ -34,7 +34,7 @@ async function check_and_login(show_tip){
 	let strorage_value = wx.getStorageSync('access_token')
 	//判断没有token的缓存
 	if (strorage_value) {
-		const check_WXsession_res = await promisic(wx.checkSession)()
+		//const check_WXsession_res = await promisic(wx.checkSession)();
 		const checkToken_res = await promisic(wx.request)({
 			url: request_urls.check_token,
 			method:'POST',
@@ -42,7 +42,8 @@ async function check_and_login(show_tip){
 				token:strorage_value
 			},
 		})
-		if(check_WXsession_res.errMsg == 'checkSession:ok' && checkToken_res.data.code == 0){
+		//if(check_WXsession_res.errMsg == 'checkSession:ok' && checkToken_res.data.code == 0){
+		if(checkToken_res.data.code == 0){
 			return true;
 		}else{
 			return login(false);
@@ -163,13 +164,18 @@ async function request_login(code){
 
 // 检查微信session是否过期
 async function check_WXsession(access_token){
-	const check_WXsession_res = await promisic(wx.checkSession)()
-									
-	if(check_WXsession_res){
-		return true
-	}else{
-		return false
+	try{
+		const check_WXsession_res = await promisic(wx.checkSession)();
+		if(check_WXsession_res){
+			return true
+		}else{
+			return false
+		}
 	}
+	catch(e){
+		return false;
+	}
+	
 }
 // 检查后台Token是否过期
 async function check_token(access_token){

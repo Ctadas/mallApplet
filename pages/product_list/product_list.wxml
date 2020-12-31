@@ -1,4 +1,14 @@
 <l-status-show show="{{product_list.length==0}}" type="product"></l-status-show>
+<l-loading
+  bg-color="#f3f3f3"
+  z-index="776"
+  opacity="1"
+  type="circle"
+  size="large"
+  show="{{loading_show}}"
+  full-screen="{{true}}"
+>
+</l-loading>
 <view>
 	<view class="order-box">
 		<l-grid rowNum="4">
@@ -21,10 +31,10 @@
 				<view class="item-info">
 					<l-grid rowNum="2">
 						<l-grid-item key="1" slot="1" l-grid-item-class="item-grid">
-							<span>规格：{{item.name}}</span>
+							<text>规格：<text class="theme-color">{{item.name}}</text></text>
 						</l-grid-item>
 						<l-grid-item key="2" slot="2" l-grid-item-class="item-grid">
-							<span>型号：{{item.model}}</span>
+							<text>型号：<text class="theme-color">{{item.model}}</text></text>
 						</l-grid-item>
 					</l-grid>
 				</view>

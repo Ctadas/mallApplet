@@ -38,6 +38,7 @@ Page({
 			url: request_urls.get_specification_info,
 			data: {
 				is_recommend: true,
+				off_shelf:false,
 				page: page,
 				page_size: page_size
 			},
