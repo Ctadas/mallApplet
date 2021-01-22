@@ -7,7 +7,9 @@
 		"pages/product_info/product_info",
 		"pages/user/user",
 		"pages/shopping_cart/shopping_cart",
-		"pages/order_form/order_form"
+		"pages/order_form/order_form",
+		"pages/order_form_info/order_form_info",
+		"pages/order_form_list/order_form_list"
 	],
 	"window": {
 		"backgroundTextStyle": "light",

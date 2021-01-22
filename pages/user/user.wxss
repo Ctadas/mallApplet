@@ -31,3 +31,46 @@
 	width: 90rpx!important;
 	height: 90rpx!important;
 }
+.user-content{
+	height: 100%;
+	display: flex;
+	align-items: center;
+	font-size: 46rpx;
+	font-weight: bold;
+}
+.order-form{
+	width: 100%;
+	background-color: white;
+	box-sizing: border-box;
+    border-radius: 4px;
+    margin: 20rpx auto;
+    padding: 20rpx;
+}
+
+.order-form .content .image{
+	width: 50rpx;
+	height: 50rpx;
+}
+.order-form .title{
+	display: flex;
+	justify-content: space-between;
+}
+.order-form .title .title-name{
+	font-weight: bold;
+}
+.order-form .title .title-all{
+	color: grey;
+	font-size: 24rpx;
+}
+.order-form .title  .title-icon{
+	display: inline;
+}
+.order-form-content{
+	background-color: white;
+	border-radius: 4px;
+	box-shadow: 0 4rpx 20rpx 0 rgba(212,217,223,.5)
+}
+
+.theme-color{
+	color:#3683d6
+}

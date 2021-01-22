@@ -58,8 +58,8 @@ Page({
 	//跳转详细页面
 	to_info:function(e){
 		let data = e.currentTarget.dataset.item;
-		let specification_id = data.product.id;
-		let product_id = data.product.product.id;
+		let specification_id = data.specification.id;
+		let product_id = data.specification.product.id;
 		wx.navigateTo({
 			url: `/pages/product_info/product_info?specification_id=${specification_id}&product_id=${product_id}`
 		});
@@ -81,14 +81,15 @@ Page({
 					title: '删除成功',
 					icon: 'success'
 				});
-			}else{
-				wx.lin.showToast({
-					title: '删除失败',
-					icon: 'error'
-				})
 			}
 		};
-		user_management.unified_request(url,method,data,callback);
+		let error_callback = () =>{
+			wx.lin.showToast({
+				title: '删除失败',
+				icon: 'error'
+			})
+		};
+		user_management.unified_request(url,method,data,callback,error_callback);
 	},
 	//展示更多操作
 	show_more:function(e){
@@ -120,30 +121,30 @@ Page({
 					item['mask_show'] = false;
 				})
 				that.setData({
+					loading_show:false,
 					shopping_cart:return_data,
 					product_list:product_list
 				})
-			}else{
-				wx.lin.showToast({
-					title: '获取购物车失败',
-					icon: 'error'
-				})
-				that.setData({
-					product_list:[]
-				})
 			}
-			that.setData({
-				loading_show:false
-			})
 		};
 		let error_callback = () =>{
-			that.login_pupop.show_pupop();
+			wx.lin.showToast({
+				title: '获取购物车失败',
+				icon: 'error'
+			})
 			that.setData({
 				product_list:[],
 				loading_show:false
 			})
 		};
-		user_management.unified_request(url,method,data,callback,error_callback);
+		let unlogin_callback=()=>{
+			that.login_pupop.show_pupop();
+			that.setData({
+				product_list:[],
+				loading_show:false
+			})
+		}
+		user_management.unified_request(url,method,data,callback,error_callback,unlogin_callback);
 		
 	},
 	//子组件回调
@@ -158,7 +159,7 @@ Page({
 		let that = this;
 		let shopping_cart_id = that.data.shopping_cart.id;
 		wx.navigateTo({
-			url: '/pages/order_form/order_form?shopping_cart_id=' + shopping_cart_id,
+			url: '/pages/order_form/order_form'
 		})
 	},
 	/**

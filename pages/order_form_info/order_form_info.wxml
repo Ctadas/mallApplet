@@ -1,5 +1,5 @@
 <!--pages/shopping_cart/shopping_cart.wxml-->
-<l-status-show show="{{product_list.length == 0}}" type="cart" bind:lintap="jump_classification"></l-status-show>
+<wxs src="../../miniprogram_npm/lin-ui/filter/classnames.wxs" module="classnames"/>
 <l-loading bg-color="rgba(243,243,243,0.7)" z-index="776" opacity="1" type="circle" size="large" show="{{loading_show}}"
 	full-screen="{{true}}">
 </l-loading>
@@ -7,6 +7,28 @@
 <view style="height:{{windowHeight}}rpx">
 	<view class="container info-overview" style="min-height:{{windowHeight}}rpx">
 		<view class="info-box">
+			<view class="{{classnames.classnames('order-status-box',{orderComplete:order_form.status.code == '3',orderConfirm:order_form.status.code == '2',orderPaird:order_form.status.code == '1',orderCancel:order_form.status.code == '4'})}}">
+				<l-countdown time-type="second" time="{{countdown_time}}" format="{%m}:{%s}" bind:linend="countdown_end" />
+				<view class="status-info">
+					<l-icon name="order" color="white" size="50"/>
+					<text class="status-info-name">{{order_form.status.name}}</text>
+				</view>
+				<view class="order-info">
+					<view>
+						<text>订单号：</text>
+						<text class="order-value">{{order_form.id}}</text>
+					</view>
+					<view>
+						<text>下单时间：</text>
+						<text class="order-value">{{order_form.create_time}}</text>
+					</view>
+					<view>
+						<text>总金额：</text>
+						<l-price unit="￥" value="{{order_form.total_price}}" value-color="#ad0e11" unit-color="#ad0e11" unit-size="36"
+				value-size="36"></l-price>
+					</view>
+				</view>
+			</view>
 			<view class="info-item-box" wx:for="{{product_list}}" wx:key="id">
 				<l-card type="primary" data-item="{{item}}" image="{{item.specification.image}}"
 					title="{{item.specification.product.name}}" l-class="card-box" l-title-class="item-title"
@@ -34,15 +56,11 @@
 					</view>
 				</l-card>
 			</view>
+			<view style="height:100rpx"></view>
+			<view class="bottom-box" wx:if="{{order_form.status.code == 1}}">
+				<l-button catchtap="order_operation" data-order="{{order_form}}" data-change_status_code="2" size="mini" type="default">立即支付</l-button>
+				<l-button l-class="cancel-btn" catchtap="order_operation" data-order="{{order_form}}"  data-change_status_code="4" size="mini" type="error">取消订单</l-button>			
+			</view>
 		</view>
-		<view style="height:100rpx"></view>
-	</view>
-	<view class="bottom-box" wx:if="{{product_list.length != 0}}">
-		<view>
-			<text class="theme-color">共计：</text>
-			<l-price unit="￥" value="{{shopping_cart.total_price}}" value-color="#ad0e11" unit-color="#ad0e11"
-				value-size="36"></l-price>
-		</view>
-		<l-button shape="circle" width="400" type="default" bindtap="submit">提交订单</l-button>
 	</view>
 </view>

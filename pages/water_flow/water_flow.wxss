@@ -11,7 +11,7 @@
 
 .life-img {
   width: 350rpx !important;
-  height: 380rpx !important;
+  height: 350rpx !important;
 }
 
 .life-product-contianer {
@@ -42,4 +42,20 @@
   display: flex;
   flex-wrap: wrap;
 }
- 
+.item-info{
+  background-color:rgb(243, 243, 243);
+  color:#3683d6;
+	box-sizing:border-content;
+	padding: 5rpx;
+	margin: 15rpx 0;
+	font-size: 24rpx;
+}
+.price-container{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.sales-box{
+  font-size: 28rpx;
+  color: gray;
+}

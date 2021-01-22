@@ -18,30 +18,31 @@
 				</l-mask>
 				<l-icon name="ellipsis" slot="more" size="50" l-class="more-icon" bindtap="show_more"
 					data-item_id="{{item.id}}" />
-				<l-card type="primary" data-item="{{item}}" image="{{item.product.image}}" full="{{true}}"
-					title="{{item.product.product.name}}" l-class="card-box" l-title-class="item-title"
+				<l-card type="primary" data-item="{{item}}" image="{{item.specification.image}}" full="{{true}}"
+					title="{{item.specification.product.name}}" l-class="card-box" l-title-class="item-title"
 					l-img-class="item-img">
 					<view class="item-content">
 						<view class="item-info">
 							<l-grid rowNum="2">
 								<l-grid-item key="1" slot="1" l-grid-item-class="item-grid">
-									<span class="theme-color">规格：{{item.product.name}}</span>
+									<span class="theme-color">规格：{{item.specification.name}}</span>
 								</l-grid-item>
 							</l-grid>
 						</view>
 						<view class="item-price-box">
-							<l-price unit="￥" value="{{item.product.price}}" value-color="#ad0e11" unit-color="#ad0e11"
+							<l-price unit="￥" value="{{item.specification.price}}" value-color="#ad0e11" unit-color="#ad0e11"
 								value-size="36"></l-price>
 							<l-counter l-class="counter-box" l-count-class="counter-item-box"
 								l-symbol-class="counter-symbol-box" count="{{item.purchase_quantity}}"
 								data-product-list-id="{{item.id}}" data-purchase-quantity="{{item.purchase_quantity}}"
-								min="1" max="{{item.product.stock}}" bind:linout="counter_out"
+								min="1" max="{{item.specification.stock}}" bind:linout="counter_out"
 								bind:linchange="counter_change" />
 						</view>
 					</view>
 				</l-card>
 			</view>
 		</view>
+		<view style="height:100rpx"></view>
 	</view>
 	<view class="bottom-box" wx:if="{{product_list.length != 0}}">
 		<view>

@@ -30,4 +30,4 @@ function classnames() {
   return classes.join(' ');
 }
 
-module.exports = classnames;
+module.exports.classnames = classnames;

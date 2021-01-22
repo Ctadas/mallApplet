@@ -1,0 +1,71 @@
+/* pages/order_form_list/order_form_list.wxss */
+.order-list-box{
+	background-color: rgb(249,249,249);
+}
+.tab-content{
+	height: 100%;
+}
+.order-title-box{
+	display: flex;
+}
+.order-status{
+	width: 115rpx;
+	text-align: right;
+	font-size: 28rpx;
+}
+.order-complete{
+	color: #3683d6
+}
+.order-confirm{
+	color: orange
+}
+.order-paird{
+	color: #9bbb6a
+}
+.order-cancel{
+	color: grey;
+}
+.product-card-box{
+	margin: 20rpx auto!important;
+}
+.item-product-content{
+	display: flex;
+	margin: 10rpx 0;
+}
+.item-info{
+	background-color:rgb(243, 243, 243);
+	box-sizing:border-content;
+	padding: 5rpx;
+	margin: 15rpx 0;
+	font-size: 24rpx;
+}
+.item-product-image{
+	width: 160rpx;
+	height: 160rpx;
+}
+.item-product-box{
+	width: 320rpx;
+	padding: 0 20rpx;
+}
+.item-product-box .item-name{
+	font-size: 28rpx;
+	display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+}
+.item-price-box{
+	/* width: 80rpx; */
+	text-align: right;
+}
+.item-purchase_quantity{
+	font-size: 24rpx;
+	color: grey;
+}
+.order-btn-box{
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
+.cancel-btn{
+	margin-left: 10rpx;
+}

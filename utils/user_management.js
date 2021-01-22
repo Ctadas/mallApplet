@@ -1,7 +1,7 @@
 import { promisic } from '../miniprogram_npm/lin-ui/utils/util.js'
 let request_urls = require('./request_urls.js');
 
-function unified_request(url,method,data,callback,error_callback=()=>{}){
+function unified_request(url,method,data,callback,error_callback=()=>{},unlogin_callback=()=>{}){
 	let is_login = check_and_login(true);
 	is_login.then(function(res){
 		if(res){
@@ -15,7 +15,12 @@ function unified_request(url,method,data,callback,error_callback=()=>{}){
 						'Authorization': 'Bearer ' + token_storange
 					},
 					success:function(res){
-						callback(res);
+						if(res.data.code == 0){
+							callback(res);
+						}else{
+							error_callback();
+						}
+						
 					}
 				})
 			}else{
@@ -23,7 +28,7 @@ function unified_request(url,method,data,callback,error_callback=()=>{}){
 				console.log('获取缓存token失败')
 			}
 		}else{
-			error_callback();
+			unlogin_callback();
 			console.log('登陆失败')
 			
 		}

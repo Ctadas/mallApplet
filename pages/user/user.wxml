@@ -1,19 +1,38 @@
 <l-toast />
-<view class="user-box">
+<view class="user-box" style="height:{{windowHeight}}rpx">
 	<view class="usre-info-box">
 		<l-card  type="primary" 
 			l-img-class="user-info-img" 
 			l-class="user-info-card"
 			position="left" 
+			full="{{true}}"
 			image="{{user_info.avatarUrl}}">
 		
-		<view class="content">
-			
-		{{user_info.nickName}}
-		<text  wx:if="{{is_login == false}}">请登录！</text>
-		</view>
-	</l-card>
-	<button wx:if="{{is_login == false}}" class="login-btn" open-type="getUserInfo" bindgetuserinfo="get_user_info"  plain="true"></button>
+			<view class="user-content">
+				
+			{{user_info.nickName}}
+			<text  wx:if="{{is_login == false}}">请登录！</text>
+			</view>
+		</l-card>
+		<button wx:if="{{is_login == false}}" class="login-btn" open-type="getUserInfo" bindgetuserinfo="get_user_info"  plain="true"></button>
 	
+	</view>
+	<view class="order-form">
+		<view class="title">
+			<span class="theme-color title-name">
+				我的订单
+			</span>
+			<a class="title-all" bindtap="jump_order_form_list">
+				<span>查看所有订单<l-icon name="right" size="24" color="#808080" l-class="title-icon"/></span>
+			</a>
+		</view>
+		<view class="content">
+			<l-grid show-col-border="{{true}}">
+				<l-grid-item wx:for="{{order_form_function}}" wx:key="id" key="{{index}}" slot="{{index}}" cell="{{item}}" bind:linitemtap="jump_order_form_list">
+					<image class="image" src="{{item.image}}"></image>
+					<view class="text">{{item.name}}</view>
+				</l-grid-item>
+			</l-grid>
+		</view>
 	</view>
 </view>

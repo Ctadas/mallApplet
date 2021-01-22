@@ -1,7 +1,48 @@
 .info-overview{
-	padding: 20rpx 0;
+	/* padding: 20rpx 0; */
 	background-color: rgb(239,239,239);
 	height: auto;
+}
+.orderComplete{
+	background-color: #3683d6
+}
+.orderConfirm{
+	background-color: orange
+}
+.orderPaird{
+	background-color: #9bbb6a
+}
+.orderCancel{
+	background-color: grey;
+}
+.order-status-box{
+	width: 100%;
+	padding: 40rpx;
+	margin-bottom: 20rpx;
+}
+.icon-text{
+	font-size: 36rpx;
+}
+.status-info{
+	width: 100%;
+    box-sizing: border-box;
+    color: white;
+    font-size: 50rpx;
+	font-weight: bold;
+	display: flex;
+	align-items: center;
+}
+.status-info .status-info-name{
+	margin-left: 20rpx;
+}
+.order-info{
+	color: white;
+    margin-top: 20rpx;
+	font-size: 24rpx;
+	line-height: 40rpx;
+}
+.order-info .order-value{
+	font-weight: bold;
 }
 .info-box{
 	width:100%
@@ -82,4 +123,19 @@
 .product-total{
 	font-size: 30rpx;
 	font-weight: bold;
+}
+.bottom-box{
+	display: flex;
+	bottom: 0;
+	left:0;
+	background-color: white;
+	width: 100%;
+	padding:10rpx 30rpx;
+	box-sizing: border-box;
+	position: fixed;
+	justify-content: flex-end;
+	align-items: center;
+}
+.cancel-btn{
+	margin-left: 10rpx;
 }

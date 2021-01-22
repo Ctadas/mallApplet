@@ -16,5 +16,10 @@ module.exports = {
 	//购物车接口
 	shopping_cart:domain+'BusinessManagement/shopping_cart/',
 	//商品清单接口
-	product_list:domain+'BusinessManagement/product_list/'
+	product_list:domain+'BusinessManagement/product_list/',
+	//订单创建接口
+	order_form_create:domain+'BusinessManagement/order_form_create/',
+	//订单接口
+	order_form:domain+'BusinessManagement/order_form/',
+	
 }

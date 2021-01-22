@@ -1,5 +1,7 @@
 // pages/user/user.js
+let request_urls = require('../../utils/request_urls.js');
 let user_management = require('../../utils/user_management.js');
+let utils = require('../../utils/util.js');
 Page({
 
 	/**
@@ -9,8 +11,26 @@ Page({
 		user_info:{
 			avatarUrl:'/images/not_login.png'
 		},
-		is_login:false
+		is_login:false,
+		order_form_function:[
+			{
+				code:'1',
+				name:'待支付',
+				image:'/images/paird.png'
+			},
+			{
+				code:'2',
+				name:'待确认',
+				image:'/images/confirm.png'
+			},
+			{
+				code:'3',
+				name:'已完成',
+				image:'/images/complete.png'
+			},
+		]
 	},
+	//获取用户信息
 	get_user_info: function(){
 		let that = this;
 		wx.getSetting({
@@ -46,7 +66,18 @@ Page({
 			}
 		})
 	},
-
+	//跳转到订单列表
+	jump_order_form_list: function(e){
+		console.log(e)
+		let code = '0';
+		if(e.detail.cell){
+			code = e.detail.cell.code
+		}
+		
+		wx.navigateTo({
+		  url: '/pages/order_form_list/order_form_list?code='+code,
+		})
+	},
 	/**
 	 * 生命周期函数--监听页面加载
 	 */
@@ -67,6 +98,10 @@ Page({
 					is_login:res
 				})
 			}
+		});
+		let window_height = utils.getWindowHeight();
+		that.setData({
+			windowHeight:window_height
 		})
 		
 	},

@@ -37,7 +37,7 @@ Page({
 		let has_specification_id = that.data.has_specification_id;
 		let shopping_cart_id = that.data.shopping_cart_id;
 		let purchase_quantity = that.data.purchase_quantity;
-		let error_callback = ()=>{
+		let unlogin_callback = ()=>{
 			that.login_pupop.show_pupop();
 			// wx.lin.showToast({
 			// 	title: '请先登陆再进行操作！',
@@ -66,12 +66,18 @@ Page({
 					})
 				}
 			};
-			user_management.unified_request(url,method,data,callback,error_callback);
+			let error_callback = (res) =>{
+				wx.lin.showToast({
+					title: '添加失败',
+					icon: 'error'
+				})
+			};
+			user_management.unified_request(url,method,data,callback,error_callback,unlogin_callback);
 		}else{
 			let url = request_urls.product_list;
 			let method = 'POST';
 			let data = {
-				product:specification_id,
+				specification:specification_id,
 				shopping_cart:shopping_cart_id,
 				purchase_quantity:purchase_quantity,
 				order_form:null
@@ -86,7 +92,13 @@ Page({
 					})
 				}
 			};
-			user_management.unified_request(url,method,data,callback,error_callback);
+			let error_callback = (res) =>{
+				wx.lin.showToast({
+					title: '添加失败',
+					icon: 'error'
+				})
+			};
+			user_management.unified_request(url,method,data,callback,error_callback,unlogin_callback);
 		}
 		
 	},
@@ -105,7 +117,7 @@ Page({
 				let has_specification_id = null;
 				if(product_list){
 					product_list.forEach(item =>{
-						if(item.product.id == specification_id){
+						if(item.specification.id == specification_id){
 							has_specification = true;
 							has_specification_id = item.id;
 						}
@@ -128,7 +140,7 @@ Page({
 		let error_callback = () =>{
 			that.data.loding_ready();
 		};
-		user_management.unified_request(url,method,data,callback,error_callback);
+		user_management.unified_request(url,method,data,callback,error_callback,error_callback);
 		
 	},
 	//切换规格信息
@@ -149,7 +161,7 @@ Page({
 		let has_specification_id = that.data.has_specification_id
 		if(product_list){
 			product_list.forEach(item =>{
-				if(item.product.id == click_id){
+				if(item.specification.id == click_id){
 					has_specification = true;
 					has_specification_id = item.id;
 				}
