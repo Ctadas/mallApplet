@@ -1,6 +1,6 @@
 /* pages/index/index.wxss */
 .index-box{
-    background-color: rgb(240, 240, 240);
+    background-color: rgb(249, 249, 249);
 }
 .swiper-box{
 	width: 100%;
@@ -14,7 +14,11 @@
 .swiper-box .swiper-item{
 	width: 100%;
 	height: inherit;
-	background-color: green;
+	background-color: white;
+}
+.carousel-image{
+    width: 100%;
+	height: inherit;
 }
 .btn-group{
 	width: 100%;
@@ -46,7 +50,7 @@
 }
 .zixun-content-box{
     padding-top:20rpx; 
-    background-color: rgb(240, 240, 240);
+    background-color: rgb(249, 249, 249);
 }
 .zixun-content-box .item-title{
     padding:10rpx;

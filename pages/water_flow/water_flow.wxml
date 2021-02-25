@@ -2,7 +2,7 @@
 <l-card full type="cover" bindtap="to_info" data-item="{{data}}"  image="{{data.image}}" title="{{data.product.name}}" l-class="life-container" l-img-class="life-img" l-title-class="life-title" >
     <view class='life-product-contianer'>
         <view class="item-info">
-            <text class="theme-color">规格：{{data.name}}</text>
+            <text class="theme-color">{{data.name}}</text>
         </view>
         <view class='price-container'>
             <l-price unit="￥" value="{{data.price}}" value-color="#ad0e11" unit-color="#ad0e11" unit-size="24" value-size="32"></l-price>

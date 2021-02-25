@@ -11,5 +11,6 @@
     "l-loading":"/miniprogram_npm/lin-ui/loading/index",
     "login_pupop":"/pages/login_pupop/login_pupop",
     "l-countdown":"/miniprogram_npm/lin-ui/countdown/index"
-  }
+  },
+  "navigationBarTitleText":"订单详情"
 }

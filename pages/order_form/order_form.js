@@ -1,6 +1,9 @@
 let request_urls = require('../../utils/request_urls.js');
 let user_management = require('../../utils/user_management.js');
 let utils = require('../../utils/util.js');
+import '../../utils/lodash/lodashUtils';
+import _ from '../../utils/lodash/lodash';
+
 Page({
 
 	/**
@@ -23,22 +26,25 @@ Page({
 		let method = 'GET';
 		let data = {};
 		let callback = (res) => {
-			if(res.data.code == 0){
-				let return_data = res.data.data[0];
-				let product_list = return_data.product_list;
-				if(product_list.length == 0){
-					wx.switchTab({
-					  url: '/pages/shopping_cart/shopping_cart',
-					})
-				}
-				that.setData({
-					shopping_cart:return_data,
-					product_list:product_list,
-					loading_show:false
+			
+			let return_data = res.data.data[0];
+
+			let product_list = _.filter(return_data.product_list, function(o) { 
+				return !o.specification.off_shelf && o.purchase_quantity <= o.specification.stock
+			});
+			if(product_list.length == 0){
+				wx.switchTab({
+					url: '/pages/shopping_cart/shopping_cart',
 				})
 			}
+			that.setData({
+				shopping_cart:return_data,
+				product_list:product_list,
+				loading_show:false
+			})
+			
 		};
-		let error_callback = () =>{
+		let error_callback = (res) =>{
 			wx.lin.showToast({
 				title: '获取购物车失败',
 				icon: 'error'
@@ -62,28 +68,41 @@ Page({
 	//提交订单
 	submit:function(){
 		let that = this;
+		let product_list = that.data.product_list;
+		let product_id_list = [];
+		for(let item of product_list){
+			product_id_list.push(item.id)
+		};
 		let url = request_urls.order_form_create;
 		let method = 'POST';
 		let data = {
-			shopping_cart_id:that.data.shopping_cart.id
+			shopping_cart_id:that.data.shopping_cart.id,
+			product_id_list:product_id_list
 		};
 		let callback = (res) => {
-			if(res.data.code == 0){
-				let return_data = res.data.data;
-				wx.lin.showToast({
-					title: '订单提交成功',
-					icon: 'success'
-				})
-				wx.navigateTo({
-					url: '/pages/order_form_info/order_form_info?order_form_id='+return_data.id,
-				})
-			}
-		};
-		let error_callback = () =>{
+			
+			let return_data = res.data.data;
 			wx.lin.showToast({
-				title: '订单提交失败',
-				icon: 'error',
+				title: '订单提交成功',
+				icon: 'success'
 			})
+			wx.navigateTo({
+				url: '/pages/order_form_info/order_form_info?order_form_id='+return_data.id,
+			})
+			
+		};
+		let error_callback = (res) =>{
+			let error_msg = res.data.msg;
+			wx.lin.showToast({
+				title: '订单提交失败!'+error_msg,
+				icon: 'error',
+				success: (res) => {
+					wx.navigateBack({
+						delta: 1,
+					})
+				}
+			});
+			
 		};
 		user_management.unified_request(url,method,data,callback,error_callback);
 	},

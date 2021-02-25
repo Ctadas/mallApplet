@@ -2,7 +2,8 @@
   "usingComponents": {
     "l-tabs": "/miniprogram_npm/lin-ui/tabs/index",
     "l-tabpanel": "/miniprogram_npm/lin-ui/tabpanel/index",
-	"l-grid": "/miniprogram_npm/lin-ui/grid/index",
-	"l-grid-item": "/miniprogram_npm/lin-ui/grid-item/index"
-  }
+    "l-grid": "/miniprogram_npm/lin-ui/grid/index",
+    "l-grid-item": "/miniprogram_npm/lin-ui/grid-item/index"
+  },
+  "navigationBarTitleText":"分类"
 }

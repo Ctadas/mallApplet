@@ -3,40 +3,58 @@
 <l-loading bg-color="rgba(243,243,243,0.7)" z-index="776" opacity="1" type="circle" size="large" show="{{loading_show}}"
 	full-screen="{{true}}">
 </l-loading>
+<l-dialog id="delete_dialog" bind:linconfirm="delete_product"/>
 <login_pupop id="login_pupop" bind:login="login_handler"></login_pupop>
 <view style="height:{{windowHeight}}rpx">
 	<view class="container info-overview" style="min-height:{{windowHeight}}rpx">
 		<view class="info-box">
+			<view class="total-num">
+				共{{product_list.length}}件商品
+			</view>
 			<view class="info-item-box" wx:for="{{product_list}}" wx:key="id">
 				<l-mask show="{{item.mask_show}}" center="{{true}}" l-class="mask-box" locked="{{false}}">
 					<view class="mask-content">
-						<l-button shape="semicircle" l-class="mask-btn" bindtap="to_info" data-item="{{item}}">详情
+						<l-button shape="semicircle" l-class="mask-btn" >详情
 						</l-button>
 						<l-button shape="semicircle" type="error" l-class="mask-btn" bindtap="delete_product"
 							data-item_id="{{item.id}}">删除</l-button>
 					</view>
 				</l-mask>
-				<l-icon name="ellipsis" slot="more" size="50" l-class="more-icon" bindtap="show_more"
+				<l-icon name="close" slot="close" size="24" l-class="close-icon" catchtap="show_delete_dialog" color="#ad0e11"
 					data-item_id="{{item.id}}" />
-				<l-card type="primary" data-item="{{item}}" image="{{item.specification.image}}" full="{{true}}"
+				<l-mask show="{{item.specification.off_shelf}}" center="{{true}}" l-class="mask-box" locked="{{true}}" opacity="0.3">
+					<view class="mask-content">
+						<text class="mask-text">该商品已下架。</text>
+					</view>
+				</l-mask>
+				<l-mask show="{{item.purchase_quantity > item.specification.stock}}" data-item="{{item}}"  opacity="0.3" center="{{true}}" l-class="mask-box" locked="{{true}}" bind:lintap="to_info">
+					<view class="mask-content">
+						<text class="mask-text">该商品库存不足，请重新加入。</text>
+					</view>
+				</l-mask>
+				<!-- <l-icon name="ellipsis" slot="more" size="50" l-class="more-icon" bindtap="show_more"
+					data-item_id="{{item.id}}" /> -->
+				
+				<l-card type="primary" data-item="{{item}}" image="{{item.specification.image}}"
 					title="{{item.specification.product.name}}" l-class="card-box" l-title-class="item-title"
-					l-img-class="item-img">
+					l-img-class="item-img"  bindtap="to_info">
 					<view class="item-content">
 						<view class="item-info">
 							<l-grid rowNum="2">
 								<l-grid-item key="1" slot="1" l-grid-item-class="item-grid">
-									<span class="theme-color">规格：{{item.specification.name}}</span>
+									<!-- <span class="theme-color">{{item.specification.name}}</span> -->
+									<span>{{item.specification.name}}</span>
 								</l-grid-item>
 							</l-grid>
 						</view>
 						<view class="item-price-box">
 							<l-price unit="￥" value="{{item.specification.price}}" value-color="#ad0e11" unit-color="#ad0e11"
 								value-size="36"></l-price>
-							<l-counter l-class="counter-box" l-count-class="counter-item-box"
+							<l-counter l-class="counter-box" l-count-class="counter-item-box" data-specification="{{item.specification}}"
 								l-symbol-class="counter-symbol-box" count="{{item.purchase_quantity}}"
 								data-product-list-id="{{item.id}}" data-purchase-quantity="{{item.purchase_quantity}}"
-								min="1" max="{{item.specification.stock}}" bind:linout="counter_out"
-								bind:linchange="counter_change" />
+								min="1" max="{{item.specification.stock<item.purchase_quantity?item.purchase_quantity:item.specification.stock}}"
+								catch:linchange="counter_change" catch:lintap="counter_change"/>
 						</view>
 					</view>
 				</l-card>

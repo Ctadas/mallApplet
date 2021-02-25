@@ -2,12 +2,17 @@
 <view class="container index-box" style="min-height:{{windowHeight}}rpx">
     <view class="swiper-box">
         <swiper class="swiper" indicator-dots="{{ swiperConfig.indicatorDots }}" autoplay="{{ swiperConfig.autoplay }}" interval="{{ swiperConfig.interval }}" duration="{{ swiperConfig.duration }}">
-            <block wx:for="{{ swiperConfig.data }}" wx:key="*this">
+            <block wx:for="{{ swiperConfig.data }}" wx:key="id">
                 <swiper-item>
-                    <view class="swiper-item {{item}}"></view>
+                    <view class="swiper-item">
+                        <image src="{{item.carousel.image}}" class="carousel-image"></image>
+                    </view>
                 </swiper-item>
             </block>
         </swiper>
+    </view>
+    <view class="row-box zixun" wx:if="{{notice}}"> 
+        <l-notice-bar type="roll" show="{{true}}" front-icon-name="notification"  speed="2000">{{notice}}</l-notice-bar>
     </view>
     <view class="row-box zixun">
         <view class="zixun-title-box">

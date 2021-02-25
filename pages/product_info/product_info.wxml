@@ -23,70 +23,84 @@
 				</block>
 			</swiper>
 		</view>
-		<view class="product-info-box">
-			<view class="info-title">
-				<text>{{product_info.name}}  {{specification_info.name}}</text>
-			</view>
-			<view class="info-content">
-				<view class="info-item-box">
-					<text class="item-title">订货价：</text>
-					<l-price unit="￥" value="{{specification_info.discounted_prices}}" value-color="#ad0e11" unit-color="#ad0e11" value-size="36"></l-price>
-				</view>
-				<view  class="info-item-box">
-					<text class="item-title">零售价：</text>
-					<l-price unit="￥" value="{{specification_info.price}}" value-color="#ad0e11" unit-color="#ad0e11" value-size="36"></l-price>
-				</view>
-			</view>
-			<view class="info-content">
-				<view  class="info-item-box">
-					<text class="item-title">型号：</text>
-					<text class="theme-color">{{specification_info.model}}</text>
-				</view>
-				<view  class="info-item-box">
-					<text class="item-title">类别：</text>
-					<block  wx:for="{{product_info.type_classification}}" wx:key="id">
-						<text class="theme-color">{{item.name}}</text>
-						<text class="theme-color" wx:if="{{index != product_info.type_classification.length-1}}">、</text>
-					</block>
-					
-				</view>
-			</view>
-			<view class="info-content">
-				<view  class="info-item-box">
-					<text class="item-title">库存：</text>
-					<text class="theme-color">{{specification_info.stock}}</text>
-				</view>
-				<view  class="info-item-box">
-					<text class="item-title">销量：</text>
-					<text class="theme-color">{{specification_info.sales}}</text>
-				</view>
-			</view>
-		</view>
-		<view class="product-info-box">
-			<view class="operate-box">
-				<view>
-					<text class="item-title">规格：</text>
-				</view>
-				<view class="operate-item-box">
-					<view wx:for="{{product_info.specifications}}" wx:key="id" 
-					class="{{item.id == specification_info.id?'item-specification-box selected':'item-specification-box'}}"
-					bindtap="change_specification" data-id="{{item.id}}"
-					>
-						<text>{{item.name}}</text>
+		<view class="content-box">
+			<l-card  type="primary" plaintext="{{true}}" l-class="info-card">
+				<!-- 此处为content -->
+				<view class="item-content product-info-box">
+					<view class="info-title">
+						<text>{{product_info.name}}  {{specification_info.name}}</text>
+					</view>
+					<view class="info-content">
+						<!-- <view class="info-item-box">
+							<text class="item-title">订货价</text>
+							<l-price unit="￥" value="{{specification_info.discounted_prices}}" value-color="#ad0e11" unit-color="#ad0e11" value-size="36"></l-price>
+						</view> -->
+						<view  class="info-item-box">
+							<!-- <text class="item-title">零售价</text> -->
+							<l-price unit="￥" value="{{specification_info.price}}" value-color="#ad0e11" unit-color="#ad0e11" unit-size="34" value-size="40"></l-price>
+						</view>
+					</view>
+					<view class="info-content">
+						<!-- <view  class="info-item-box">
+							<text class="item-title">型号</text>
+							<text class="theme-color info-value">{{specification_info.model}}</text>
+						</view> -->
+						<view  class="info-item-box">
+							<text class="item-title">类别</text>
+							<block  wx:for="{{product_info.type_classification}}" wx:key="id">
+								<text class="theme-color info-value">{{item.name}}</text>
+								<text class="theme-color info-value" wx:if="{{index != product_info.type_classification.length-1}}">、</text>
+							</block>
+							
+						</view>
+					</view>
+					<view class="info-content sales-content">
+						<view  class="info-item-box">
+							<text class="item-title">库存</text>
+							<text class="theme-color info-value">{{specification_info.stock}}</text>
+						</view>
+						<view  class="info-item-box">
+							<text class="item-title">销量</text>
+							<text class="theme-color info-value">{{specification_info.sales}}</text>
+						</view>
 					</view>
 				</view>
-			</view>
-			<view class="num-box">
-				<view>
-					<text class="item-title">订购数量：</text>
+			</l-card>
+		</view>
+		<view class="content-box">
+			<l-card  type="primary" plaintext="{{true}}" l-class="info-card">
+				<!-- 此处为content -->
+				<view class="item-content product-info-box">
+					<view class="operate-box">
+						<view>
+							<text class="item-title">选择</text>
+						</view>
+						<view class="operate-item-box">
+							<block  wx:for="{{product_info.specifications}}" wx:key="id" >
+								<view wx:if="{{item.off_shelf == false && item.stock != 0}}" class="{{item.id == specification_info.id?'item-specification-box selected':'item-specification-box'}}"
+								bindtap="change_specification" data-id="{{item.id}}"
+								>
+									<text>{{item.name}}</text>
+								</view>
+								<view wx:else class="item-specification-box item-specification-box-none">
+									<text>{{item.name}}</text>
+								</view>
+							</block>
+						</view>
+					</view>
+					<view class="num-box">
+						<view>
+							<text class="item-title">订购数量</text>
+						</view>
+						<l-counter 
+							l-class="counter-box" l-count-class="counter-item-box" l-symbol-class="counter-symbol-box" 
+							count="{{counter_count}}" min="{{specification_info.stock==0?0:1}}" max="{{specification_info.stock}}"
+							bind:linout="counter_out" bind:linchange="counter_change"
+						/>
+					</view>
+					
 				</view>
-				<l-counter 
-					l-class="counter-box" l-count-class="counter-item-box" l-symbol-class="counter-symbol-box" 
-					count="{{counter_count}}" min="1" max="{{specification_info.stock}}"
-					bind:linout="counter_out" bind:linchange="counter_change"
-				/>
-			</view>
-			
+			</l-card>
 		</view>
 		<view style="margin-bottom:50px"></view>
 	</view>
@@ -94,6 +108,7 @@
 		<l-badge value="{{product_list.length}}" show="{{product_list.length !=0}}">
 			<l-icon name="cart" size="60" color="#3683d6" bindtap="to_shoppingcart"/>
 		</l-badge>
-		<l-button shape="circle" width="500" type="default" bindtap="add_product">加入购物车</l-button>
+		<l-button wx:if="{{specification_info.stock != 0}}" shape="circle" width="500" type="default" bindtap="add_product">加入购物车</l-button>
+		<l-button wx:else shape="circle" disabled="{{true}}" width="500" type="warning">库存不足</l-button>
 	</view>
 </view>

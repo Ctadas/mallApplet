@@ -18,9 +18,10 @@ Page({
 		})
 	},
 	//超出数量提醒
-	counter_out:function(){
+	counter_out:function(e){
+		console.log(e)
 		wx.lin.showToast({
-			title: '超出货品库存',
+			title: '超出货品库存，已为您调整为最大库存数。',
 			icon: 'warning'
 		})
 	},
@@ -28,10 +29,11 @@ Page({
 	counter_change:function(res){
 		let that = this;
 		let count = res.detail.count;
+		let specification = res.target.dataset.specification;
 		let productListId = res.target.dataset.productListId;
 		let purchaseQuantity = res.target.dataset.purchaseQuantity;
 		//判断是否跟原始值相同，不相同进行更新操作
-		if(count != purchaseQuantity){
+		if(count <= specification.stock && count != purchaseQuantity){
 			that.upload_product_list(productListId,count);
 		}
 
@@ -49,11 +51,16 @@ Page({
 			partial:true
 		};
 		let callback = (res) => {
-			if(res.data.code == 0){
-				that.get_shopping_cart();
-			}
+			
+			that.get_shopping_cart();
+			
 		};
-		user_management.unified_request(url,method,data,callback);
+		let error_callback = (res) => {
+			that.setData({
+				loading_show:false
+			})
+		}
+		user_management.unified_request(url,method,data,callback,error_callback);
 	},
 	//跳转详细页面
 	to_info:function(e){
@@ -64,32 +71,58 @@ Page({
 			url: `/pages/product_info/product_info?specification_id=${specification_id}&product_id=${product_id}`
 		});
 	},
+	//显示删除弹窗
+	show_delete_dialog:function(e){
+		let that = this;
+		const delete_dialog = that.selectComponent('#delete_dialog');
+		delete_dialog.linShow({
+			"type":"confirm",
+			"title":"",
+			"content":"确定移出购物车？",
+			"showTitle":false,
+			"confirmText":"移出",
+			"confirmColor":"#F4516C",
+			"cancelText":"取消",
+			"cancelColor":"#999",
+		});
+		let item_id = e.currentTarget.dataset.item_id;
+		that.setData({
+			delete_id : item_id
+		})
+	},
 	//删除购物车的商品
 	delete_product:function(e){
 		let that = this;
+
 		that.setData({
 			loading_show:true
 		})
-		let item_id = e.currentTarget.dataset.item_id;
+		let item_id = that.data.delete_id;
 		let url = request_urls.product_list+item_id+'/';
 		let method = 'DELETE';
 		let data = {};
 		let callback = (res) => {
-			if(res.data.code == 0){
-				that.get_shopping_cart();
-				wx.lin.showToast({
-					title: '删除成功',
-					icon: 'success'
-				});
-			}
+		
+			that.get_shopping_cart();
+			wx.lin.showToast({
+				title: '删除成功',
+				icon: 'success'
+			});
+			
 		};
 		let error_callback = () =>{
 			wx.lin.showToast({
 				title: '删除失败',
 				icon: 'error'
-			})
+			});
+			that.setData({
+				loading_show:false
+			});
 		};
-		user_management.unified_request(url,method,data,callback,error_callback);
+		if(item_id){
+			user_management.unified_request(url,method,data,callback,error_callback);
+		}
+		
 	},
 	//展示更多操作
 	show_more:function(e){
@@ -114,18 +147,18 @@ Page({
 		let method = 'GET';
 		let data = {};
 		let callback = (res) => {
-			if(res.data.code == 0){
-				let return_data = res.data.data[0];
-				let product_list = return_data.product_list;
-				product_list.forEach(item =>{
-					item['mask_show'] = false;
-				})
-				that.setData({
-					loading_show:false,
-					shopping_cart:return_data,
-					product_list:product_list
-				})
-			}
+			
+			let return_data = res.data.data[0];
+			let product_list = return_data.product_list;
+			product_list.forEach(item =>{
+				item['mask_show'] = false;
+			})
+			that.setData({
+				loading_show:false,
+				shopping_cart:return_data,
+				product_list:product_list
+			})
+			
 		};
 		let error_callback = () =>{
 			wx.lin.showToast({
@@ -158,9 +191,18 @@ Page({
 	settlement:function(e){
 		let that = this;
 		let shopping_cart_id = that.data.shopping_cart.id;
-		wx.navigateTo({
-			url: '/pages/order_form/order_form'
-		})
+		let total_price = that.data.shopping_cart.total_price;
+		if(total_price == 0){
+			wx.lin.showToast({
+				title: '没有可以下单的商品！',
+				icon: 'error'
+			})
+		}else{
+			wx.navigateTo({
+				url: '/pages/order_form/order_form'
+			})
+		}
+		
 	},
 	/**
 	 * 生命周期函数--监听页面加载

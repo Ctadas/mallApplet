@@ -10,5 +10,6 @@
     "l-mask":"/miniprogram_npm/lin-ui/mask/index",
     "l-loading":"/miniprogram_npm/lin-ui/loading/index",
     "login_pupop":"/pages/login_pupop/login_pupop"
-  }
+  },
+  "navigationBarTitleText":"生成订单"
 }

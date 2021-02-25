@@ -8,15 +8,19 @@
 	<view class="container info-overview" style="min-height:{{windowHeight}}rpx">
 		<view class="info-box">
 			<view class="{{classnames.classnames('order-status-box',{orderComplete:order_form.status.code == '3',orderConfirm:order_form.status.code == '2',orderPaird:order_form.status.code == '1',orderCancel:order_form.status.code == '4'})}}">
-				<l-countdown time-type="second" time="{{countdown_time}}" format="{%m}:{%s}" bind:linend="countdown_end" />
-				<view class="status-info">
-					<l-icon name="order" color="white" size="50"/>
-					<text class="status-info-name">{{order_form.status.name}}</text>
+				<view class="info-title-box">
+					<view class="status-info">
+						<l-icon name="order" color="white" size="50"/>
+						<text class="status-info-name">{{order_form.status.name}}</text>
+					</view>
+					<view wx:if="{{order_form.status.code == '1'}}">
+						<l-countdown time-type="second" time="{{countdown_time}}" format="{%m}:{%s}" bind:linend="countdown_end" />
+					</view>
 				</view>
 				<view class="order-info">
 					<view>
 						<text>订单号：</text>
-						<text class="order-value">{{order_form.id}}</text>
+						<text class="order-value">{{order_form.order_code}}</text>
 					</view>
 					<view>
 						<text>下单时间：</text>
@@ -29,6 +33,9 @@
 					</view>
 				</view>
 			</view>
+			<view class="total-num">
+				共{{product_list.length}}件商品
+			</view>
 			<view class="info-item-box" wx:for="{{product_list}}" wx:key="id">
 				<l-card type="primary" data-item="{{item}}" image="{{item.specification.image}}"
 					title="{{item.specification.product.name}}" l-class="card-box" l-title-class="item-title"
@@ -37,7 +44,7 @@
 						<view class="item-info">
 							<l-grid rowNum="2">
 								<l-grid-item key="1" slot="1" l-grid-item-class="item-grid">
-									<span class="theme-color">规格：{{item.specification.name}}</span>
+									<text>{{item.specification.name}}</text>
 								</l-grid-item>
 							</l-grid>
 						</view>
@@ -58,7 +65,7 @@
 			</view>
 			<view style="height:100rpx"></view>
 			<view class="bottom-box" wx:if="{{order_form.status.code == 1}}">
-				<l-button catchtap="order_operation" data-order="{{order_form}}" data-change_status_code="2" size="mini" type="default">立即支付</l-button>
+				<l-button catchtap="order_operation" data-order="{{order_form}}" data-change_status_code="2" size="mini" type="default">立即确认</l-button>
 				<l-button l-class="cancel-btn" catchtap="order_operation" data-order="{{order_form}}"  data-change_status_code="4" size="mini" type="error">取消订单</l-button>			
 			</view>
 		</view>

@@ -1,5 +1,7 @@
 import { promisic } from '../miniprogram_npm/lin-ui/utils/util.js'
 let request_urls = require('./request_urls.js');
+import '../utils/lodash/lodashUtils';
+import _ from '../utils/lodash/lodash';
 
 function unified_request(url,method,data,callback,error_callback=()=>{},unlogin_callback=()=>{}){
 	let is_login = check_and_login(true);
@@ -18,7 +20,17 @@ function unified_request(url,method,data,callback,error_callback=()=>{},unlogin_
 						if(res.data.code == 0){
 							callback(res);
 						}else{
-							error_callback();
+							let error_msg = '';
+							if(_.isArray(res.data.msg)){
+								for(let item in res.data.msg){
+									error_msg += item
+								}
+							}
+							else{
+								error_msg = res.data.msg;
+							};
+							res.data.msg = error_msg;
+							error_callback(res);
 						}
 						
 					}

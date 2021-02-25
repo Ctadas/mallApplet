@@ -9,7 +9,8 @@
 		"pages/shopping_cart/shopping_cart",
 		"pages/order_form/order_form",
 		"pages/order_form_info/order_form_info",
-		"pages/order_form_list/order_form_list"
+		"pages/order_form_list/order_form_list",
+		"pages/order_form_search/order_form_search"
 	],
 	"window": {
 		"backgroundTextStyle": "light",
@@ -24,18 +25,26 @@
 		"list": [
 			{
 				"pagePath": "pages/index/index",
+				"iconPath": "/images/tabbar/index.png",
+				"selectedIconPath": "/images/tabbar/selectedIndex.png",
 				"text": "首页"
 			},
 			{
 				"pagePath": "pages/classification/classification",
+				"iconPath": "/images/tabbar/classification.png",
+				"selectedIconPath": "/images/tabbar/selectedClassification.png",
 				"text": "分类"
 			},
 			{
 				"pagePath": "pages/shopping_cart/shopping_cart",
+				"iconPath": "/images/tabbar/shopping_cart.png",
+				"selectedIconPath": "/images/tabbar/selectedShopping_cart.png",
 				"text": "购物车"
 			},
 			{
 				"pagePath": "pages/user/user",
+				"iconPath": "/images/tabbar/user.png",
+				"selectedIconPath": "/images/tabbar/selectedUser.png",
 				"text": "用户"
 			}
 		]

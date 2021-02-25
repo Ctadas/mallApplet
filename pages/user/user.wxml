@@ -11,7 +11,7 @@
 			<view class="user-content">
 				
 			{{user_info.nickName}}
-			<text  wx:if="{{is_login == false}}">请登录！</text>
+			<text  wx:if="{{is_login == false}}">点击登录！</text>
 			</view>
 		</l-card>
 		<button wx:if="{{is_login == false}}" class="login-btn" open-type="getUserInfo" bindgetuserinfo="get_user_info"  plain="true"></button>
@@ -27,12 +27,13 @@
 			</a>
 		</view>
 		<view class="content">
-			<l-grid show-col-border="{{true}}">
-				<l-grid-item wx:for="{{order_form_function}}" wx:key="id" key="{{index}}" slot="{{index}}" cell="{{item}}" bind:linitemtap="jump_order_form_list">
+			<l-grid show-border="{{true}}" row-num="2">
+				<l-grid-item wx:for="{{order_form_function}}" wx:key="id" key="{{index}}"  slot="{{index}}" cell="{{item}}" bind:linitemtap="jump_order_form_list">
 					<image class="image" src="{{item.image}}"></image>
 					<view class="text">{{item.name}}</view>
 				</l-grid-item>
 			</l-grid>
 		</view>
+		<l-button wx:if="{{is_login}}" shape="circle" plain="{{true}}" size="long" type="default" bindtap="logout">退出登陆</l-button>
 	</view>
 </view>

@@ -1,4 +1,3 @@
-/* pages/order_form_list/order_form_list.wxss */
 .order-list-box{
 	background-color: rgb(249,249,249);
 }

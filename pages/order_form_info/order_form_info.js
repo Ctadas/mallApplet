@@ -8,7 +8,8 @@ Page({
 	 * 页面的初始数据
 	 */
 	data: {
-		countdown_time:'10'
+		countdown_time:'10',
+		loading_show:true,
 	},
 	countdown_end:function(){
 		this.get_order_form_info();
@@ -19,7 +20,7 @@ Page({
 		let create_time = new Date(that.data.order_form.create_time);
 		let now_time = new Date();
 		console.log(create_time,now_time)
-		let countdown_time = Math.ceil(60 - (now_time.getTime() - create_time.getTime())/1000);
+		let countdown_time = Math.ceil(60*15 - (now_time.getTime() - create_time.getTime())/1000);
 		let a = `${countdown_time}`
 		that.setData({
 			countdown_time:a
@@ -45,7 +46,7 @@ Page({
 				})
 			}else{
 				wx.lin.showToast({
-					title: '支付成功',
+					title: '确认成功',
 					icon: 'success'
 				})
 			}
@@ -59,7 +60,7 @@ Page({
 				})
 			}else{
 				wx.lin.showToast({
-					title: '支付失败',
+					title: '确认失败',
 					icon: 'error'
 				})
 			}
@@ -68,22 +69,25 @@ Page({
 	},
 	//获取订单信息
 	get_order_form_info:function(){
-		console.log(1)
 		let that = this;
+		that.setData({
+			loading_show:true,
+		});
 		let order_form_id = that.data.order_form_id;
 		let url = `${request_urls.order_form}${order_form_id}`;
 		let method = 'GET';
 		let data = {};
 		let callback = (res) => {
-			if(res.data.code == 0){
-				let return_data = res.data.data;
-				let product_list = return_data.product_list;
-				that.setData({
-					order_form:return_data,
-					product_list:product_list
-				});
-				that.countdown_function();
-			}
+			
+			let return_data = res.data.data;
+			let product_list = return_data.product_list;
+			that.setData({
+				order_form:return_data,
+				product_list:product_list,
+				loading_show:false,
+			});
+			that.countdown_function();
+			
 		};
 		let error_callback = () =>{
 			wx.lin.showToast({

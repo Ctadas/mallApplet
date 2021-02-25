@@ -1,8 +1,7 @@
-<l-status-show show="{{product_list.length==0}}" type="product"></l-status-show>
 <l-loading
   bg-color="#f3f3f3"
   z-index="776"
-  opacity="1"
+  opacity="0.7"
   type="circle"
   size="large"
   show="{{loading_show}}"
@@ -10,33 +9,37 @@
 >
 </l-loading>
 <view>
+	<l-search-bar value="{{search}}" placeholder="搜索" shape="circle" bind:linconfirm="search_product" bind:lincancel="cancel_search"/>
 	<view class="order-box">
-		<l-grid rowNum="4">
+		<l-grid rowNum="3">
 			<l-grid-item wx:for="{{order_list}}" wx:key="id"  key="{{index}}" slot="{{index}}" bind:linitemtap="change_order"	cell="{{item}}">
 				<view class="{{item.is_selected?'order-selected':'order-unselected'}}">
 					<view class="order-content">
 						<text>{{item.name}}</text>
-						<l-icon size="30" l-class="order-icon" wx:if="{{item.is_selected && item.icon}}" name="{{item.icon}}"/>
+						<!-- <l-icon size="30" l-class="order-icon" wx:if="{{item.is_selected && item.icon}}" name="{{item.icon}}"/> -->
+						<image wx:if="{{item.is_selected && item.icon}}" class="order-image" src="/images/{{item.icon}}.png"></image>
 					</view>
 				</view>
 			</l-grid-item>
 		</l-grid>
 	</view>
-	<view class="content">
+	<scroll-view scroll-top="{{scroll_top_num}}" scroll-y="true"  lower-threshold="30" bindscrolltolower="onReachBottom" style="height:{{windowHeight-180}}rpx">
+		<l-status-show show="{{product_list.length==0}}" type="product" full-screen="{{false}}" l-class="status-show"></l-status-show>
 		<l-card wx:for="{{product_list}}" wx:key="id" type="primary" bindtap="to_info" data-item="{{item}}"
-            image="{{item.image}}"
-            title="{{item.product.name}}  {{item.name}}" full="true" l-class="card" l-title-class="item.title">
+            image="{{item.image}}" l-img-class="card-img"
+            title="{{item.product.name}}" full="true" l-class="card" l-title-class="item-title">
 			<!-- 此处为content -->
 			<view class="item-content">
 				<view class="item-info">
-					<l-grid rowNum="2">
+					<!-- <l-grid rowNum="2">
 						<l-grid-item key="1" slot="1" l-grid-item-class="item-grid">
-							<text>规格：<text class="theme-color">{{item.name}}</text></text>
+							<text class="theme-color">{{item.name}}</text>
 						</l-grid-item>
 						<l-grid-item key="2" slot="2" l-grid-item-class="item-grid">
 							<text>型号：<text class="theme-color">{{item.model}}</text></text>
 						</l-grid-item>
-					</l-grid>
+					</l-grid> -->
+					<text class="item-grid">{{item.name}}</text>
 				</view>
 				<view class="item-price-box">
 					<l-price unit="￥" value="{{item.price}}" value-color="#ad0e11" unit-color="#ad0e11" value-size="36"></l-price>
@@ -49,5 +52,5 @@
 			
 		</view>
 		</l-loadmore>
-	</view>
+	</scroll-view>
 </view>

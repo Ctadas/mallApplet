@@ -109,36 +109,35 @@ Page({
 		let method = 'GET';
 		let data = {};
 		let callback = (res) => {
-			if(res.data.code == 0){
-				let shopping_cart_id = res.data.data[0].id;
-				let product_list = res.data.data[0].product_list;
-				let has_specification = false;
-				let specification_id = that.data.specification_id;
-				let has_specification_id = null;
-				if(product_list){
-					product_list.forEach(item =>{
-						if(item.specification.id == specification_id){
-							has_specification = true;
-							has_specification_id = item.id;
-						}
-					})
-				}
-				that.setData({
-					shopping_cart_id:shopping_cart_id,
-					product_list:product_list,
-					has_specification:has_specification,
-					has_specification_id:has_specification_id
-				});
-				that.data.loding_ready();
-			}else{
-				wx.lin.showToast({
-					title: '获取购物车失败',
-					icon: 'error'
+			
+			let shopping_cart_id = res.data.data[0].id;
+			let product_list = res.data.data[0].product_list;
+			let has_specification = false;
+			let specification_id = that.data.specification_id;
+			let has_specification_id = null;
+			if(product_list){
+				product_list.forEach(item =>{
+					if(item.specification.id == specification_id){
+						has_specification = true;
+						has_specification_id = item.id;
+					}
 				})
 			}
+			that.setData({
+				shopping_cart_id:shopping_cart_id,
+				product_list:product_list,
+				has_specification:has_specification,
+				has_specification_id:has_specification_id
+			});
+			that.data.loding_ready();
+			
 		};
 		let error_callback = () =>{
 			that.data.loding_ready();
+			// wx.lin.showToast({
+			// 	title: '获取购物车失败',
+			// 	icon: 'error'
+			// })
 		};
 		user_management.unified_request(url,method,data,callback,error_callback,error_callback);
 		
@@ -234,8 +233,16 @@ Page({
 	},
 	//超出数量提醒
 	counter_out:function(){
+		let that = this;
+		let specification_info = that.data.specification_info;
+		let msg = ''
+		if(specification_info.stock ==0){
+			msg = '库存不足'
+		}else{
+			msg = '超出货品库存'
+		}
 		wx.lin.showToast({
-			title: '超出货品库存',
+			title: msg,
 			icon: 'warning'
 		})
 	},

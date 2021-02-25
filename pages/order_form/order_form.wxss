@@ -1,6 +1,6 @@
 .info-overview{
 	padding: 20rpx 0;
-	background-color: rgb(239,239,239);
+	background-color: rgb(249,249,249);
 	height: auto;
 }
 .info-box{
@@ -26,6 +26,8 @@
 	margin-right: 20rpx;
 }
 .card-box{
+	display: flex;
+	/* align-items: center; */
 	padding:40rpx 40rpx 20rpx 20rpx!important;
 	margin-bottom:20rpx!important;
 }
@@ -33,19 +35,26 @@
 	font-size: 30rpx!important;
 	font-weight: bold;
 }
+.total-num{
+	width: 92%;
+    margin: 0 auto;
+    color: #585858;
+    margin-bottom: 20rpx;
+}
 .item-img{
-	width: 150rpx!important;
-	height: 150rpx!important;
+	width: 180rpx!important;
+	height: 180rpx!important;
 }
 .item-content{
-	margin: 10rpx 0;
+	/* margin: 10rpx 0; */
 }
 .item-info{
-	background-color:rgb(243, 243, 243);
+	/* background-color:rgb(243, 243, 243); */
+	color: grey;
+	font-size: 30rpx;
 	box-sizing:border-content;
 	padding: 5rpx;
-	margin: 10rpx 0;
-	font-size: 24rpx;
+	margin: 15rpx 0;
 }
 .item-price-box{
 	display: flex;

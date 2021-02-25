@@ -9,5 +9,6 @@
     "l-badge":"/miniprogram_npm/lin-ui/badge/index",
     "l-loading":"/miniprogram_npm/lin-ui/loading/index",
     "login_pupop":"/pages/login_pupop/login_pupop"
-  }
+  },
+  "navigationBarTitleText":"商品详情"
 }

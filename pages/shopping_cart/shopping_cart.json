@@ -9,6 +9,8 @@
     "l-status-show":"/miniprogram_npm/lin-ui/status-show/index",
     "l-mask":"/miniprogram_npm/lin-ui/mask/index",
     "l-loading":"/miniprogram_npm/lin-ui/loading/index",
+    "l-dialog":"/miniprogram_npm/lin-ui/dialog/index",
     "login_pupop":"/pages/login_pupop/login_pupop"
-  }
+  },
+  "navigationBarTitleText":"购物车"
 }

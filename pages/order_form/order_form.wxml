@@ -7,6 +7,9 @@
 <view style="height:{{windowHeight}}rpx">
 	<view class="container info-overview" style="min-height:{{windowHeight}}rpx">
 		<view class="info-box">
+			<view class="total-num">
+				共{{product_list.length}}件商品
+			</view>
 			<view class="info-item-box" wx:for="{{product_list}}" wx:key="id">
 				<l-card type="primary" data-item="{{item}}" image="{{item.specification.image}}"
 					title="{{item.specification.product.name}}" l-class="card-box" l-title-class="item-title"
@@ -15,7 +18,8 @@
 						<view class="item-info">
 							<l-grid rowNum="2">
 								<l-grid-item key="1" slot="1" l-grid-item-class="item-grid">
-									<span class="theme-color">规格：{{item.specification.name}}</span>
+									<!-- <span class="theme-color">{{item.specification.name}}</span> -->
+									<span>{{item.specification.name}}</span>
 								</l-grid-item>
 							</l-grid>
 						</view>
@@ -39,7 +43,7 @@
 	</view>
 	<view class="bottom-box" wx:if="{{product_list.length != 0}}">
 		<view>
-			<text class="theme-color">共计：</text>
+			<text class="theme-color">合计：</text>
 			<l-price unit="￥" value="{{shopping_cart.total_price}}" value-color="#ad0e11" unit-color="#ad0e11"
 				value-size="36"></l-price>
 		</view>

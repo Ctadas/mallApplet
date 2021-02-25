@@ -3,7 +3,9 @@
   	"l-grid": "/miniprogram_npm/lin-ui/grid/index",
   	"l-grid-item": "/miniprogram_npm/lin-ui/grid-item/index",
     "l-water-flow": "/miniprogram_npm/lin-ui/water-flow/index",
+    "l-notice-bar": "/miniprogram_npm/lin-ui/notice-bar/index",
     "l-water-card": "/pages/water_flow/water_flow",
-	"l-loadmore": "/miniprogram_npm/lin-ui/loadmore/index"
-  }
+	  "l-loadmore": "/miniprogram_npm/lin-ui/loadmore/index"
+  },
+  "navigationBarTitleText":"主页"
 }

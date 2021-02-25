@@ -1,5 +1,6 @@
 // pages/product_list/product_list.js
 let request_urls = require('../../utils/request_urls.js');
+let utils = require('../../utils/util.js');
 Page({
 
 	/**
@@ -25,17 +26,75 @@ Page({
 				is_selected: false
 			},
 		],
+		order_list_init:[
+			{
+				name:'默认',
+				ordering_field:'name',
+				is_selected:true
+			},
+			{
+				name: '销量',
+				icon: 'down',
+				ordering_field:'sales',
+				is_selected: false
+			},
+			{
+				name: '价格',
+				icon: 'down',
+				ordering_field:'price',
+				is_selected: false
+			},
+		],
 		type_id:null,
 		loading_show:true,
 		page:1,
 		page_size:5,
 		ordering_field:'name', //默认排序字段
+		ordering_field_init:'name',
 		type_id:'', //类型分类
 		data_cout:0,
 		loadmore_config: {
 			show: false,
 			type: 'loading'
+		},
+		search:'',
+		scroll_top_num:0
+	},
+	//搜索
+	search_product:function(e){
+		let that = this;
+		let search_value = e.detail.value; 
+		if(search_value.length != 0){
+			that.setData({
+				loading_show:true,
+				search:search_value,
+				page:1,
+				order_list:that.data.order_list_init,
+				ordering_field:that.data.ordering_field_init,
+				loadmore_config: {
+					show: false,
+					type: 'loading'
+				},
+				scroll_top_num:0,
+			})
+			that.get_product_list();
 		}
+	},
+	//取消搜索
+	cancel_search:function(e){
+		let that = this;
+		that.setData({
+			search:'',
+			page:1,
+			order_list:that.data.order_list_init,
+			ordering_field:that.data.ordering_field_init,
+			loadmore_config: {
+				show: false,
+				type: 'loading'
+			},
+			scroll_top_num:0,
+		})
+		that.get_product_list();
 	},
 	//跳转详情界面
 	to_info:function(e){
@@ -100,7 +159,13 @@ Page({
 		
 		that.setData({
 			page:page,
-			ordering_field: ordering_field
+			ordering_field: ordering_field,
+			loading_show:true,
+			loadmore_config: {
+				show: false,
+				type: 'loading'
+			},
+			scroll_top_num:0,
 		});
 		that.get_product_list();
 	},
@@ -111,6 +176,7 @@ Page({
 		let page_size = that.data.page_size;
 		let type_id = that.data.type_id;
 		let ordering_field = that.data.ordering_field;
+		let search = that.data.search;
 		wx.request({
 			url: request_urls.get_specification_info,
 			data: {
@@ -119,6 +185,7 @@ Page({
 				page: page,
 				page_size: page_size,
 				ordering: ordering_field,
+				search:search,
 			},
 			success: function (res) {
 				if(res.data.code == 0){
@@ -151,11 +218,12 @@ Page({
 	onLoad: function (options) {
 		let that = this;
 		let type_id = options.type_id;
+		let window_height = utils.getWindowHeight();
 		that.setData({
-			type_id:type_id
+			type_id:type_id,
+			windowHeight:window_height,
 		})
 		that.get_product_list();
-		
 
 	},
 
@@ -204,9 +272,9 @@ Page({
 		let page_size = that.data.page_size;
 		let data_count = that.data.data_cout;
 		if ((page - 1) * page_size < data_count) {
-			that.setData({
-				loading_show :true
-			})
+			// that.setData({
+			// 	loading_show :true
+			// })
 			loadmore_config.show = true;
 			loadmore_config.type = "loading";
 			that.setData({

@@ -16,5 +16,5 @@
     "l-loadmore": "/miniprogram_npm/lin-ui/loadmore/index",
     "l-search-bar":"/miniprogram_npm/lin-ui/search-bar/index"
   },
-  "navigationBarTitleText":"订单列表"
+  "navigationBarTitleText":"订单搜索"
 }

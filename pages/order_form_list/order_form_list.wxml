@@ -1,16 +1,19 @@
-<l-status-show show="{{order_form_list.length == 0}}" type="order"></l-status-show>
 <l-loading bg-color="rgba(243,243,243,0.7)" z-index="776" opacity="1" type="circle" size="large" show="{{loading_show}}"
 	full-screen="{{true}}">
 </l-loading>
 <login_pupop id="login_pupop" bind:login="login_handler"></login_pupop>
-<view class="order-list-box" style="height:{{windowHeight}}rpx">
+<view class="search-box">
+	<l-search-bar value="{{search}}" placeholder="搜索所有订单" shape="circle" bind:linconfirm="search_order" bind:lincancel="cancel_search"/>
+</view>
+<view class="order-list-box" style="height:{{windowHeight-66}}rpx">
 	<l-tabs bind:linchange="changeTabs" active-key="{{active_tab}}" active-color="#3683d6" animated="{{true}}"  swipeable="{{true}}" l-tabpanel-class="tabpanel">
 		<l-tabpanel wx:for="{{tab_list}}" wx:key="id" tab="{{item.name}}" key="{{item.id}}" slot="{{item.id}}" >
-			<scroll-view scroll-y="true" class="tab-content">
+			<scroll-view scroll-y="true" class="tab-content" lower-threshold="30" bindscrolltolower="onReachBottom">
+				<l-status-show show="{{item.content.results == 0}}" type="order"  full-screen="{{false}}" l-class="status-show"></l-status-show>
 				<l-card type="primary"
 					l-class="product-card-box"
 					plaintext="{{true}}"
-					wx:for="{{item.content}}"
+					wx:for="{{item.content.results}}"
 					wx:key="id"
 					wx:for-index="item_order_index"
 					wx:for-item="item_order"
@@ -20,7 +23,8 @@
 					<view class="content">
 						<view class="item-order">
 							<view class="order-title-box">
-								<text>订单号：{{item_order.id}}</text>
+								<text class="order-code">共{{item_order.product_list.length}}件商品</text>
+								<!-- <text class="order-code">订单号：{{item_order.order_code}}</text> -->
 								<text wx:if="{{item_order.status.code == '1'}}" class="order-status order-paird">{{item_order.status.name}}</text>
 								<text wx:elif="{{item_order.status.code == '2'}}" class="order-status order-confirm">{{item_order.status.name}}</text>
 								<text wx:elif="{{item_order.status.code == '3'}}" class="order-status order-complete">{{item_order.status.name}}</text>
@@ -34,30 +38,38 @@
 									<view class="item-product-box">
 										<text class="item-name">{{item_product.specification.product.name}}</text>
 										<view class="item-info">
-											<text class="theme-color">规格：{{item_product.specification.name}}</text>
+											<!-- <text class="theme-color">{{item_product.specification.name}}</text> -->
+											<text >{{item_product.specification.name}}</text>
 										</view>
 									</view>
 									<view class="item-price-box">
 										<l-price unit="￥" value="{{item_product.specification.price}}" value-color="black" unit-color="black"
 										value-size="26"></l-price>
-										<text class="item-purchase_quantity">x{{item_product.purchase_quantity}}</text>
+										<view>
+											<text class="item-purchase_quantity">x{{item_product.purchase_quantity}}</text>
+										</view>
 									</view>
 								</view>
 							</view>
 							<view class="order-btn-box">
 								<view>
+									<l-button wx:if="{{item_order.status.code == '1'}}" catchtap="order_operation" data-order="{{item_order}}" data-change_status_code="2" size="mini" type="default">立即确认</l-button>
+									<l-button l-class="cancel-btn" wx:if="{{item_order.status.code == '1'}}" catchtap="order_operation" data-order="{{item_order}}"  data-change_status_code="4" size="mini" type="error">取消订单</l-button>
+								</view>
+								<view>
 									<text>总价：</text>
 									<l-price unit="￥" value="{{item_order.total_price}}" value-color="#ad0e11" unit-color="#ad0e11"
 									unit-size="32" value-size="32"></l-price>
-								</view>
-								<view>
-									<l-button wx:if="{{item_order.status.code == '1'}}" catchtap="order_operation" data-order="{{item_order}}" data-change_status_code="2" size="mini" type="default">立即支付</l-button>
-									<l-button l-class="cancel-btn" wx:if="{{item_order.status.code == '1'}}" catchtap="order_operation" data-order="{{item_order}}"  data-change_status_code="4" size="mini" type="error">取消订单</l-button>
 								</view>
 							</view>
 						</view>
 					</view>
 				</l-card>
+				<l-loadmore  line="true" show="{{loadmore_config.show}}" type="{{loadmore_config.type}}" loading-text="努力加载中~" end-text="已经到底了">
+				<view slot="content">
+					
+				</view>
+				</l-loadmore>
 				<view style="height:100rpx"></view>
 			</scroll-view>
 		</l-tabpanel>

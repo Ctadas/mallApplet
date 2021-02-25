@@ -7,6 +7,8 @@
 	"l-loadmore": "/miniprogram_npm/lin-ui/loadmore/index",
 	"l-icon": "/miniprogram_npm/lin-ui/icon/index",
 	"l-status-show":"/miniprogram_npm/lin-ui/status-show/index",
+	"l-search-bar":"/miniprogram_npm/lin-ui/search-bar/index",
 	"l-loading":"/miniprogram_npm/lin-ui/loading/index"
-  }
+  },
+  "navigationBarTitleText":"商品列表"
 }

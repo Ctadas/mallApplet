@@ -15,18 +15,23 @@ Page({
 		order_form_function:[
 			{
 				code:'1',
-				name:'待支付',
-				image:'/images/paird.png'
+				name:'待确认',
+				image:'/images/paird1.png'
 			},
 			{
 				code:'2',
-				name:'待确认',
-				image:'/images/confirm.png'
+				name:'待打单',
+				image:'/images/confirm1.png'
 			},
 			{
 				code:'3',
 				name:'已完成',
-				image:'/images/complete.png'
+				image:'/images/complete1.png'
+			},
+			{
+				code:'4',
+				name:'已取消',
+				image:'/images/cancel.png'
 			},
 		]
 	},
@@ -66,9 +71,28 @@ Page({
 			}
 		})
 	},
+	//推出登陆
+	logout: function(){
+		let that = this;
+		try {
+			wx.clearStorageSync();
+			that.setData({
+				user_info:{avatarUrl:'/images/not_login.png'},
+				is_login:false,
+			});
+			wx.lin.showToast({
+				title: '退出登陆成功！',
+				icon: 'success'
+			});
+		} catch(e) {
+			wx.lin.showToast({
+				title: '退出登陆失败！',
+				icon: 'error'
+			});
+		}
+	},
 	//跳转到订单列表
 	jump_order_form_list: function(e){
-		console.log(e)
 		let code = '0';
 		if(e.detail.cell){
 			code = e.detail.cell.code
